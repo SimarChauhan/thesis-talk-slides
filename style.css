@@ -1,0 +1,740 @@
+/* ============================================================
+   GLOBAL TOKENS
+   ============================================================ */
+:root {
+  --ink: #0f172a;
+  --muted: #334155;
+  --blue: #0057b8;
+  --blue-light: #2563eb;
+  --red: #dc2626;
+  --green: #16a34a;
+  --amber: #d97706;
+  --panel: rgba(255,255,255,0.93);
+  --panel-2: rgba(245,248,255,0.88);
+}
+
+/* ============================================================
+   HIDE SLIDEV LAYOUT NAME BADGE (shown in both dev and export)
+   ============================================================ */
+.slidev-layout-name,
+[class*="layout-name"],
+.layout-name {
+  display: none !important;
+}
+
+/* ============================================================
+   SLIDE BASE
+   ============================================================ */
+.slidev-layout {
+  background: radial-gradient(circle at 12% 8%, #f8faff 0%, #edf2fb 45%, #dce8f8 100%);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.slidev-layout.default {
+  padding: 0.9rem 1.4rem 0.5rem;
+}
+
+.hero {
+  background:
+    radial-gradient(90rem 35rem at -8% -8%, rgba(0,87,184,0.22) 0%, transparent 45%),
+    radial-gradient(75rem 30rem at 108% 108%, rgba(217,119,6,0.2) 0%, transparent 45%),
+    linear-gradient(135deg, #f5faff 0%, #e6eeff 55%, #d8e7f7 100%);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 0.3rem;
+}
+h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blue-light);
+  margin: 0.15rem 0 0.4rem;
+}
+.slidev-layout ul, .slidev-layout ol { margin: 0.25rem 0; padding-left: 1.2rem; }
+.slidev-layout li { font-size: 0.81rem; line-height: 1.45; margin-bottom: 0.22rem; }
+p { font-size: 0.83rem; line-height: 1.45; margin: 0.25rem 0; }
+
+/* ============================================================
+   KEYWORDS  (blue + underline per guideline)
+   ============================================================ */
+.kw {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(0,87,184,0.35);
+  text-underline-offset: 2px;
+}
+
+/* ============================================================
+   CITATIONS  (blue APA)
+   ============================================================ */
+.cite { color: var(--blue); font-weight: 600; font-style: normal; }
+p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600; }
+
+.citefoot {
+  margin-top: 0.6rem;
+  font-size: 0.59rem;
+  line-height: 1.25;
+  color: #475569;
+  border-top: 1px solid rgba(71,85,105,0.15);
+  padding-top: 0.35rem;
+}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.slidev-layout table { font-size: 0.74rem; border-collapse: collapse; width: 100%; }
+.slidev-layout th { background: rgba(37,99,235,0.08); color: #1e3a8a; padding: 0.22rem 0.45rem; text-align: left; }
+.slidev-layout td { padding: 0.18rem 0.45rem; border-bottom: 1px solid rgba(15,23,42,0.07); }
+.slidev-layout tr:last-child td { border-bottom: none; }
+.compact-tables table { font-size: 0.7rem; }
+.compact-tables th, .compact-tables td { padding: 0.15rem 0.35rem; }
+
+/* ============================================================
+   TITLE SLIDE  meta-grid
+   ============================================================ */
+.meta-grid {
+  margin-top: 1.3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   CALLOUT BOXES
+   ============================================================ */
+.callout {
+  margin-top: 0.7rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(14,116,144,0.28);
+  background: #ecfeff;
+  color: #0c4a6e;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+.callout.warn {
+  border-color: rgba(180,83,9,0.28);
+  background: #fff7ed;
+  color: #92400e;
+}
+
+/* ============================================================
+   TWO-COLUMN LAYOUT
+   ============================================================ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* ============================================================
+   RQ CARDS
+   ============================================================ */
+.rq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin: 0.5rem 0; }
+.rq-card {
+  background: var(--panel);
+  border: 1px solid rgba(30,64,175,0.16);
+  border-top: 3px solid var(--blue-light);
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.6rem;
+  font-size: 0.77rem;
+  line-height: 1.35;
+}
+.rq-num {
+  display: inline-block;
+  background: var(--blue-light);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Findings strip */
+.findings-strip {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
+}
+.finding-pill {
+  flex: 1;
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+  color: #fff;
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.74rem;
+  text-align: center;
+}
+.finding-num {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 0.1rem;
+}
+
+/* ============================================================
+   TABLE OF CONTENTS
+   ============================================================ */
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-left: 4px solid var(--blue-light);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.82rem;
+}
+.toc-item.done { border-left-color: var(--green); opacity: 0.65; }
+.toc-item.extra { border-left-color: #94a3b8; }
+.toc-n {
+  font-weight: 800;
+  color: var(--blue);
+  min-width: 1.2rem;
+}
+
+/* ============================================================
+   PIPELINE VISUAL
+   ============================================================ */
+.pipeline-visual {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.6rem 0;
+}
+.pipe-box {
+  flex: 1;
+  border-radius: 0.65rem;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.73rem;
+  line-height: 1.4;
+  border: 1.5px solid;
+}
+.pipe-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+  opacity: 0.75;
+}
+.pipe-title { font-weight: 700; font-size: 0.78rem; margin-bottom: 0.2rem; }
+.pipe-detail { font-size: 0.7rem; }
+.phase1 { background: rgba(37,99,235,0.07); border-color: #3b82f6; color: #1e3a8a; }
+.phase2 { background: rgba(22,163,74,0.07); border-color: #22c55e; color: #14532d; }
+.wbbox  { background: rgba(168,85,247,0.07); border-color: #a855f7; color: #4c1d95; }
+.pipe-arrow { font-size: 1.3rem; color: #64748b; }
+
+/* ============================================================
+   MODEL CHIPS
+   ============================================================ */
+.model-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem; }
+.chip {
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  border: 1.5px solid;
+}
+.chip.closed { background: #fef3c7; border-color: #f59e0b; color: #78350f; }
+.chip.open   { background: #dbeafe; border-color: #3b82f6; color: #1e3a8a; }
+.chip-legend { font-size: 0.65rem; margin-top: 0.25rem; color: var(--muted); }
+
+/* ============================================================
+   NLI DIAGRAM
+   ============================================================ */
+.nli-diagram { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.35rem; }
+.nli-step {
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-left: 3px solid var(--blue);
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.72rem;
+}
+.nli-fallback { border-left-color: var(--amber); }
+.nli-pct { font-weight: 800; color: var(--blue); margin-right: 0.3rem; }
+.nli-fallback .nli-pct { color: var(--amber); }
+
+/* ============================================================
+   ERROR TYPE DIAGRAM (intro)
+   ============================================================ */
+.error-type-diagram {
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.09);
+  border-radius: 0.7rem;
+  padding: 0.65rem;
+}
+.et-title { font-weight: 700; font-size: 0.78rem; margin-bottom: 0.4rem; }
+.et-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.4rem 0.45rem;
+  border-radius: 0.45rem;
+  margin-bottom: 0.3rem;
+  background: rgba(15,23,42,0.03);
+  font-size: 0.74rem;
+}
+.et-row.et-highlight { background: rgba(220,38,38,0.07); border: 1px solid rgba(220,38,38,0.2); }
+.et-icon { font-size: 1.1rem; }
+.et-samples { display: block; margin: 0.15rem 0 0.1rem; }
+.s-wrong { color: var(--red); font-weight: 700; margin-right: 0.3rem; }
+.s-diff  { color: #d97706; font-weight: 600; margin-right: 0.3rem; }
+.s-same  { color: var(--red); font-weight: 600; margin-right: 0.3rem; opacity: 0.7; }
+
+/* ============================================================
+   TruthfulQA VISUAL (background slide)
+   ============================================================ */
+.tqa-visual {
+  background: var(--panel);
+  border-radius: 0.65rem;
+  border: 1px solid rgba(15,23,42,0.09);
+  overflow: hidden;
+  font-size: 0.74rem;
+}
+.tqa-header { background: #1e3a8a; color: #fff; padding: 0.3rem 0.6rem; font-size: 0.68rem; font-weight: 700; }
+.tqa-q { padding: 0.4rem 0.6rem; font-style: italic; border-bottom: 1px solid rgba(15,23,42,0.07); }
+.tqa-row { padding: 0.3rem 0.6rem; display: flex; gap: 0.4rem; border-bottom: 1px solid rgba(15,23,42,0.06); }
+.tqa-label { min-width: 3.5rem; font-weight: 700; font-size: 0.68rem; }
+.tqa-label.ok  { color: var(--green); }
+.tqa-label.ie-l { color: var(--amber); }
+.tqa-label.ce-l { color: var(--red); }
+.tqa-note { padding: 0.3rem 0.6rem; font-size: 0.68rem; background: rgba(220,38,38,0.05); color: var(--red); }
+
+/* ============================================================
+   GAP VISUAL TABLE (related work)
+   ============================================================ */
+.gap-visual { margin-top: 0.4rem; border-radius: 0.5rem; overflow: hidden; border: 1px solid rgba(15,23,42,0.1); font-size: 0.72rem; }
+.gap-row { display: grid; grid-template-columns: 1.8fr 0.6fr 0.6fr 0.6fr 0.8fr; padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(15,23,42,0.06); }
+.gap-row.header { background: #1e3a8a; color: #fff; font-weight: 700; font-size: 0.68rem; }
+.gap-row.this-thesis { background: rgba(37,99,235,0.08); font-weight: 700; }
+.gc { color: var(--green); font-weight: 700; text-align: center; }
+.gx { color: #94a3b8; text-align: center; }
+.gnew { color: #7c3aed; font-weight: 800; text-align: center; }
+
+/* ============================================================
+   2×2 ERROR MATRIX
+   ============================================================ */
+.matrix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 0.5rem; }
+.matrix-grid .cell { padding: 0.45rem 0.4rem; border-radius: 0.5rem; border: 2px solid; font-size: 0.71rem; text-align: center; line-height: 1.3; }
+.cell.rc { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+.cell.fc { background: #fef9c3; border-color: #ca8a04; color: #713f12; }
+.cell.ce { background: #fee2e2; border-color: var(--red); color: #7f1d1d; font-weight: 700; }
+.cell.ie { background: #ffedd5; border-color: #ea580c; color: #7c2d12; }
+
+/* ============================================================
+   EXAMPLE BOX
+   ============================================================ */
+.example-box {
+  background: var(--panel);
+  border: 1.5px solid rgba(15,23,42,0.1);
+  border-radius: 0.65rem;
+  overflow: hidden;
+  font-size: 0.74rem;
+}
+.ex-q { padding: 0.4rem 0.6rem; font-weight: 600; background: #f1f5f9; border-bottom: 1px solid rgba(15,23,42,0.07); }
+.ex-correct { padding: 0.3rem 0.6rem; color: var(--green); border-bottom: 1px solid rgba(15,23,42,0.07); }
+.ex-ce-label { padding: 0.25rem 0.6rem 0 0.6rem; font-weight: 700; color: var(--red); }
+.ex-ce-answer { padding: 0.15rem 0.6rem 0.3rem 1.2rem; font-style: italic; color: var(--red); border-bottom: 1px solid rgba(15,23,42,0.07); }
+.ex-samples { padding: 0.25rem 0.6rem; display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.s-badge { background: rgba(220,38,38,0.12); color: var(--red); font-size: 0.65rem; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-weight: 700; }
+.ex-detector { padding: 0.25rem 0.6rem; font-size: 0.7rem; background: rgba(22,163,74,0.07); border-top: 1px solid rgba(15,23,42,0.07); }
+.ok-badge { color: var(--green); }
+
+/* ============================================================
+   FFN PROBE ARCHITECTURE
+   ============================================================ */
+.probe-arch {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.5rem 0;
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 0.55rem;
+  padding: 0.5rem 0.6rem;
+}
+.pa-box {
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.3rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.25;
+  min-width: 2.2rem;
+}
+.pa-box.input  { background: rgba(37,99,235,0.1); color: #1e40af; border: 1.5px solid #3b82f6; }
+.pa-box.hidden { background: rgba(168,85,247,0.09); color: #5b21b6; border: 1.5px solid #a855f7; min-width: 1.9rem; }
+.pa-box.hidden.sm { min-width: 1.5rem; }
+.pa-box.output { background: rgba(220,38,38,0.09); color: #7f1d1d; border: 1.5px solid var(--red); min-width: 2rem; }
+.pa-arrow { color: #64748b; font-size: 0.9rem; }
+
+/* ============================================================
+   EVOLUTION TIMELINE
+   ============================================================ */
+.evo-timeline { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.4rem 0; }
+.evo-family {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--panel);
+  border-radius: 0.5rem;
+  border: 1.5px solid;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.68rem;
+}
+.grok-family  { border-color: var(--red); }
+.llama-family { border-color: var(--blue-light); }
+.qwen-family  { border-color: var(--green); }
+.evo-label { font-weight: 800; min-width: 2.6rem; font-size: 0.72rem; }
+.evo-v { text-align: center; flex: 1; line-height: 1.25; }
+.evo-sep { color: #94a3b8; }
+
+/* ============================================================
+   THREAT LIST
+   ============================================================ */
+.threat-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.3rem; }
+.threat-item {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.threat-icon { font-size: 1rem; }
+
+/* ============================================================
+   BIG NUMBER GRID (Results summary)
+   ============================================================ */
+.big-number-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin: 0.6rem 0;
+}
+.big-number-grid > div {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+  color: #fff;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.6rem;
+  text-align: center;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 16px rgba(30,58,138,0.18);
+}
+.big-number-grid span {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 900;
+  margin-bottom: 0.1rem;
+}
+/* keep kw legible inside dark big-number-grid */
+.big-number-grid .kw {
+  color: #bfdbfe;
+  text-decoration-color: rgba(191,219,254,0.4);
+}
+
+/* Result pills */
+.result-pills { display: flex; gap: 0.5rem; margin: 0.5rem 0; }
+.r-pill {
+  flex: 1;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.73rem;
+  line-height: 1.35;
+  border: 1.5px solid;
+}
+.r-pill.o1 { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.3); color: #7f1d1d; }
+.r-pill.o2 { background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.3); color: #1e3a8a; }
+.r-pill.o3 { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.3); color: #14532d; }
+
+/* ============================================================
+   DONUT CHART AREA
+   ============================================================ */
+.donut-area { display: flex; align-items: center; gap: 0.7rem; margin: 0.3rem 0; }
+.donut-ring { position: relative; }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.donut-legend { font-size: 0.72rem; line-height: 1.6; }
+.dl-dot { display: inline-block; width: 0.65rem; height: 0.65rem; border-radius: 50%; margin-right: 0.3rem; vertical-align: middle; }
+
+/* ============================================================
+   BAR CHARTS
+   ============================================================ */
+.bar-chart { margin: 0.3rem 0; }
+.bc-row { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.25rem; }
+.bc-label { font-size: 0.68rem; min-width: 5rem; color: var(--muted); }
+.bc-bar { height: 0.85rem; border-radius: 0.2rem; max-width: 100%; transition: width 0.3s; }
+.bc-val { font-size: 0.68rem; font-weight: 700; color: var(--red); }
+.bc-axis { display: flex; font-size: 0.6rem; color: #94a3b8; margin-top: 0.1rem; }
+
+/* AUROC bars */
+.auroc-bars { margin: 0.3rem 0 0.2rem; }
+.ab-row { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.2rem; }
+.ab-l { font-size: 0.67rem; min-width: 4.5rem; color: var(--muted); }
+.ab-tgt { height: 0.75rem; background: linear-gradient(90deg, #1d4ed8, #60a5fa); border-radius: 0.2rem; }
+.ab-v { font-size: 0.67rem; font-weight: 700; color: #1d4ed8; }
+
+/* Gap comparison bars */
+.gap-comparison { margin: 0.6rem 0 0.2rem; }
+.gc-item { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.22rem; }
+.gc-label { font-size: 0.68rem; min-width: 7.5rem; color: var(--muted); }
+.gc-bar { height: 0.8rem; border-radius: 0.2rem; }
+.proxy-bar  { background: linear-gradient(90deg, #1d4ed8, #60a5fa); }
+.direct-bar { background: linear-gradient(90deg, #16a34a, #4ade80); }
+.gc-val { font-size: 0.68rem; font-weight: 700; color: var(--ink); }
+.gc-note { font-size: 0.67rem; color: var(--muted); font-style: italic; margin-top: 0.2rem; }
+
+/* ============================================================
+   OVERLAP VISUAL
+   ============================================================ */
+.overlap-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0 0.25rem;
+  gap: -1.2rem;
+}
+.ov-circle {
+  width: 4rem; height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+.c1 { background: rgba(220,38,38,0.22); border: 2px solid var(--red); color: #7f1d1d; margin-right: -1rem; z-index: 2; }
+.c2 { background: rgba(37,99,235,0.22); border: 2px solid var(--blue-light); color: #1e3a8a; margin-left: -1rem; z-index: 2; }
+.ov-overlap { background: rgba(168,85,247,0.3); border: 1.5px dashed #7c3aed; width: 2.5rem; height: 4rem; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; text-align: center; color: #4c1d95; font-weight: 700; z-index: 3; }
+
+/* ============================================================
+   CATEGORY BARS
+   ============================================================ */
+.cat-bars { margin: 0.3rem 0; }
+.cb-row { display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.2rem; }
+.cb-cat { font-size: 0.65rem; min-width: 7rem; color: var(--muted); }
+.cb-bar { height: 0.72rem; background: var(--red); border-radius: 0.15rem; }
+.cb-bar.low-bar { background: #22c55e; }
+.cb-pct { font-size: 0.65rem; font-weight: 700; color: var(--red); }
+.cb-row.low .cb-pct { color: var(--green); }
+.cb-sep { font-size: 0.6rem; color: #94a3b8; margin: 0.15rem 0; font-style: italic; }
+
+/* ============================================================
+   TRAJECTORY CHART
+   ============================================================ */
+.trajectory-chart { display: flex; gap: 0.3rem; }
+.tc-yaxis { display: flex; flex-direction: column; justify-content: space-between; font-size: 0.6rem; color: #94a3b8; padding-right: 0.2rem; padding-bottom: 1rem; }
+.tc-plot { flex: 1; }
+
+/* ============================================================
+   WHAT'S NEW — "NEW" cards
+   ============================================================ */
+.new-cards { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.3rem; }
+.new-card {
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.1);
+  border-left: 4px solid #7c3aed;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  position: relative;
+}
+.nc-badge {
+  display: inline-block;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 0.05rem 0.35rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.15rem;
+}
+
+/* ============================================================
+   IMPACT — PRACTICE CARDS
+   ============================================================ */
+.practice-cards { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.3rem; }
+.pcard {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  border-radius: 0.5rem;
+  border: 1px solid;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.pcard.danger { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); color: #7f1d1d; }
+.pcard.green  { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.25); color: #14532d; }
+.pcard.blue   { background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.25); color: #1e3a8a; }
+.pcard-icon { font-size: 1.1rem; }
+
+/* ============================================================
+   LIMITATIONS GRID
+   ============================================================ */
+.limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; }
+.limit-card {
+  background: var(--panel);
+  border: 1px solid rgba(30,64,175,0.12);
+  border-left: 4px solid var(--red);
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.55rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.lc-icon { font-size: 1.1rem; margin-bottom: 0.15rem; }
+
+/* ============================================================
+   VALIDATION GRID
+   ============================================================ */
+.validation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
+.val-card {
+  background: var(--panel);
+  border: 1px solid rgba(37,99,235,0.14);
+  border-top: 3px solid var(--blue-light);
+  border-radius: 0.55rem;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.vc-icon { font-size: 1.1rem; margin-bottom: 0.15rem; }
+
+/* ============================================================
+   OBS ROW
+   ============================================================ */
+.obs-row {
+  margin-top: 0.4rem;
+  font-size: 0.76rem;
+  padding: 0.35rem 0.55rem;
+  background: var(--panel-2);
+  border-radius: 0.45rem;
+  border: 1px solid rgba(15,23,42,0.07);
+}
+
+/* ============================================================
+   CONCLUSIONS
+   ============================================================ */
+.conclusion-rows { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.35rem; }
+.conc-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.conc-badge {
+  min-width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.72rem;
+  color: #fff;
+}
+.o1b { background: var(--red); }
+.o2b { background: var(--blue-light); }
+.o3b { background: var(--green); }
+
+/* ============================================================
+   FUTURE WORK & LESSONS
+   ============================================================ */
+.future-list { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.3rem; }
+.fw-item {
+  display: flex;
+  gap: 0.45rem;
+  background: var(--panel);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 0.45rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+.fw-icon { font-size: 0.95rem; }
+
+.lesson-cards { display: flex; flex-direction: column; gap: 0.4rem; }
+.lesson-card {
+  display: flex;
+  gap: 0.6rem;
+  background: var(--panel);
+  border: 1px solid rgba(37,99,235,0.14);
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.lnum {
+  min-width: 1.6rem;
+  height: 1.6rem;
+  background: var(--blue-light);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SLIDE NUMBER — bottom RIGHT "X of Y"
+   ============================================================ */
+.global-slide-number {
+  position: fixed;
+  right: 0.9rem;
+  bottom: 0.5rem;
+  font-size: 0.68rem;
+  color: #1f2937;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(17,24,39,0.1);
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   RESPONSIVE FALLBACK
+   ============================================================ */
+@media (max-width: 900px) {
+  .meta-grid, .rq-grid, .flow-grid, .two-col,
+  .big-number-grid, .matrix-grid, .limits-grid,
+  .validation-grid, .toc-grid, .findings-strip,
+  .result-pills { grid-template-columns: 1fr; flex-direction: column; }
+}

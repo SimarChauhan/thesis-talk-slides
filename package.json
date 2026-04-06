@@ -1,0 +1,15 @@
+{
+  "name": "thesis-talk-slidev",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export --format pdf"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "playwright-chromium": "^1.52.0"
+  }
+}
