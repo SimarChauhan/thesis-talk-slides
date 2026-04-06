@@ -87,9 +87,9 @@ April 2026
 **Three RQs addressed:**
 
 <div class="rq-grid">
-<div class="rq-card"><div class="rq-num">RQ1</div>How prevalent are CEs across closed-source and open-weight frontier LLMs?</div>
-<div class="rq-card"><div class="rq-num">RQ2</div>Can small <span class="kw">proxy encoders</span> detect CEs for API-only targets without hidden-state access?</div>
-<div class="rq-card"><div class="rq-num">RQ3</div>Do CEs decrease as model families evolve over successive generations?</div>
+<div class="rq-card"><div class="rq-num">RQ1</div> How prevalent are CEs across closed-source and open-weight frontier LLMs?</div>
+<div class="rq-card"><div class="rq-num">RQ2</div> Can small <span class="kw">proxy encoders</span> detect CEs for API-only targets without hidden-state access?</div>
+<div class="rq-card"><div class="rq-num">RQ3</div> Do CEs decrease as model families evolve over successive generations?</div>
 </div>
 
 <div class="findings-strip">
