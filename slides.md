@@ -576,6 +576,14 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 - Fusion: $s = (1-\lambda)s_M + \lambda s_V$, with $\lambda \in [0,1]$ tuned on validation
 - Test sizes are shown per target as `correct/CE` rows
 
+**Split audit (all 6 targets combined; both configs, seed=42 split):**
+
+| Split | Correct (C) | CE |
+|---|---:|---:|
+| Train | 555 | 527 |
+| Validation | 41 | 58 |
+| Test | 57 | 68 |
+
 **Config 1: SmolLM3-3B + Phi-4-mini**
 
 | Target | Tgt | Ver | Fused | λ | Test |
@@ -601,6 +609,14 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 <div class="compact-tables o2-detail-table">
 
 **Protocol:** same question-level split (**Train 80% / Validation 10% / Test 10%**) · seeds 11/22/33 · Adam 1e-3 · up to 300 epochs + early stop · λ tuned on validation.
+
+**Split audit (all 6 targets combined; same split as Config 1):**
+
+| Split | Correct (C) | CE |
+|---|---:|---:|
+| Train | 555 | 527 |
+| Validation | 41 | 58 |
+| Test | 57 | 68 |
 
 **Config 2: Qwen3.5-4B + Phi-4-mini**
 
