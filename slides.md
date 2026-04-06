@@ -633,13 +633,11 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 | Llama 4 | Qwen3-Next-80B | .872 | **.909** | .883 | .18 |
 | Qwen3 Next | Llama-3.1-8B | **.946** | .929 | .936 | .92 |
 | Qwen3 Next | Qwen2.5-0.5B | **.946** | .924 | .946 | .53 |
+| **Mean (Llama 4, 3 verifiers)** | — | **.872** | **.890** | **.876** | — |
+| **Mean (Qwen3 Next, 2 verifiers)** | — | **.946** | **.927** | **.941** | — |
 
-<div class="gap-comparison">
-  <div class="gc-item"><span class="gc-label">Proxy (SmolLM3)</span><div class="gc-bar proxy-bar" style="width:91.8%"></div><span class="gc-val">0.918</span></div>
-  <div class="gc-item"><span class="gc-label">Proxy (Qwen3.5)</span><div class="gc-bar proxy-bar" style="width:91.9%"></div><span class="gc-val">0.919</span></div>
-  <div class="gc-item"><span class="gc-label">Direct (Llama 4)</span><div class="gc-bar direct-bar" style="width:87.2%"></div><span class="gc-val">0.872</span></div>
-  <div class="gc-item"><span class="gc-label">Direct (Qwen3 Next)</span><div class="gc-bar direct-bar" style="width:94.6%"></div><span class="gc-val">0.946</span></div>
-  <div class="gc-note">↑ Gap ≤ 0.03 AUROC - proxy matches direct extraction</div>
+<div class="obs-row" style="margin-top:0.35rem">
+<strong>Context:</strong> proxy configs on prior slides report <strong>mean fused CE AUROC 0.918</strong> (SmolLM3) and <strong>0.919</strong> (Qwen3.5) over six API targets (unweighted mean of per-target fused values; seeds 11/22/33). Rows above average only across verifier choice for each locally loaded target.
 </div>
 
 <div class="citefoot">
