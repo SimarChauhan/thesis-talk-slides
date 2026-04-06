@@ -574,30 +574,19 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 - Seeds: **11, 22, 33**; report mean AUROC
 - Optimizer/training: **Adam (1e-3)**, up to **300 epochs**, early stopping
 - Fusion: $s = (1-\lambda)s_M + \lambda s_V$, with $\lambda \in [0,1]$ tuned on validation
-- Test sizes are shown per target as `correct/CE` rows
-
-**Split audit per model (seed=42 split; both configs):**
-
-| Target | Train (C/CE) | Validation (C/CE) | Test (C/CE) |
-|---|---|---|---|
-| Claude 4.6 | 72/73 | 3/11 | 15/6 |
-| DeepSeek | 125/116 | 10/11 | 8/16 |
-| GPT-5.2 | 51/48 | 4/7 | 6/6 |
-| Grok 4 | 81/67 | 4/8 | 3/13 |
-| Llama 4 | 106/103 | 10/9 | 9/13 |
-| Qwen3 Next | 120/120 | 10/12 | 16/14 |
+- Per-target split sizes are shown as `C/CE` for train, validation, and test
 
 **Config 1: SmolLM3-3B + Phi-4-mini**
 
-| Target | Tgt | Ver | Fused | λ | Test |
-|---|---:|---:|---:|---:|---|
-| Claude 4.6 | .952 | **1.00** | .985 | .27 | 15C/6CE |
-| DeepSeek | .852 | **.878** | .875 | .97 | 8C/16CE |
-| GPT-5.2 | .935 | **.972** | .935 | .00 | 6C/6CE |
-| Grok 4 | .923 | **.949** | .923 | .00 | 3C/13CE |
-| Llama 4 | **.877** | .858 | **.877** | .00 | 9C/13CE |
-| Qwen3 Next | **.915** | .884 | .914 | .45 | 16C/14CE |
-| **Mean** | .909 | .923 | **.918** |  |  |
+| Target | Tgt | Ver | Fused | λ | Train (C/CE) | Val (C/CE) | Test (C/CE) |
+|---|---:|---:|---:|---:|---|---|---|
+| Claude 4.6 | .952 | **1.00** | .985 | .27 | 72/73 | 3/11 | 15/6 |
+| DeepSeek | .852 | **.878** | .875 | .97 | 125/116 | 10/11 | 8/16 |
+| GPT-5.2 | .935 | **.972** | .935 | .00 | 51/48 | 4/7 | 6/6 |
+| Grok 4 | .923 | **.949** | .923 | .00 | 81/67 | 4/8 | 3/13 |
+| Llama 4 | **.877** | .858 | **.877** | .00 | 106/103 | 10/9 | 9/13 |
+| Qwen3 Next | **.915** | .884 | .914 | .45 | 120/120 | 10/12 | 16/14 |
+| **Mean** | .909 | .923 | **.918** |  |  |  |  |
 
 </div>
 
@@ -613,28 +602,17 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 
 **Protocol:** same question-level split (**Train 80% / Validation 10% / Test 10%**) · seeds 11/22/33 · Adam 1e-3 · up to 300 epochs + early stop · λ tuned on validation.
 
-**Split audit per model (same split as Config 1):**
-
-| Target | Train (C/CE) | Validation (C/CE) | Test (C/CE) |
-|---|---|---|---|
-| Claude 4.6 | 72/73 | 3/11 | 15/6 |
-| DeepSeek | 125/116 | 10/11 | 8/16 |
-| GPT-5.2 | 51/48 | 4/7 | 6/6 |
-| Grok 4 | 81/67 | 4/8 | 3/13 |
-| Llama 4 | 106/103 | 10/9 | 9/13 |
-| Qwen3 Next | 120/120 | 10/12 | 16/14 |
-
 **Config 2: Qwen3.5-4B + Phi-4-mini**
 
-| Target | Tgt | Ver | Fused | λ | Test |
-|---|---:|---:|---:|---:|---|
-| Claude 4.6 | .941 | **1.00** | **1.00** | .50 | 15C/6CE |
-| DeepSeek | .844 | **.878** | .846 | .05 | 8C/16CE |
-| GPT-5.2 | .954 | **.972** | .954 | .00 | 6C/6CE |
-| Grok 4 | .897 | **.949** | .897 | .00 | 3C/13CE |
-| Llama 4 | **.880** | .858 | .877 | .03 | 9C/13CE |
-| Qwen3 Next | **.942** | .884 | .940 | .25 | 16C/14CE |
-| **Mean** | .910 | .923 | **.919** |  |  |
+| Target | Tgt | Ver | Fused | λ | Train (C/CE) | Val (C/CE) | Test (C/CE) |
+|---|---:|---:|---:|---:|---|---|---|
+| Claude 4.6 | .941 | **1.00** | **1.00** | .50 | 72/73 | 3/11 | 15/6 |
+| DeepSeek | .844 | **.878** | .846 | .05 | 125/116 | 10/11 | 8/16 |
+| GPT-5.2 | .954 | **.972** | .954 | .00 | 51/48 | 4/7 | 6/6 |
+| Grok 4 | .897 | **.949** | .897 | .00 | 81/67 | 4/8 | 3/13 |
+| Llama 4 | **.880** | .858 | .877 | .03 | 106/103 | 10/9 | 9/13 |
+| Qwen3 Next | **.942** | .884 | .940 | .25 | 120/120 | 10/12 | 16/14 |
+| **Mean** | .910 | .923 | **.919** |  |  |  |  |
 
 </div>
 
