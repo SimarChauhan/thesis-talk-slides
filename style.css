@@ -97,6 +97,13 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
 .slidev-layout tr:last-child td { border-bottom: none; }
 .compact-tables table { font-size: 0.7rem; }
 .compact-tables th, .compact-tables td { padding: 0.15rem 0.35rem; }
+.o3-evo-table table { font-size: 0.58rem; }
+.o3-evo-table th, .o3-evo-table td { padding: 0.08rem 0.2rem; }
+.o2-detail-table { font-size: 0.62rem; }
+.o2-detail-table table { font-size: 0.56rem; }
+.o2-detail-table th, .o2-detail-table td { padding: 0.06rem 0.18rem; }
+.o2-detail-table ul { margin: 0.25rem 0 0.35rem 1rem; }
+.o2-detail-table li { margin: 0.06rem 0; line-height: 1.25; }
 
 /* ============================================================
    TITLE SLIDE  meta-grid

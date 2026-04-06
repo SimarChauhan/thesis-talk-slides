@@ -566,52 +566,44 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 
 # Results — O2: White-Box Probe Performance
 
-<div class="two-col compact-tables" style="gap:0.8rem">
-<div>
+<div class="compact-tables o2-detail-table">
+
+**Training/protocol details (same for both proxy configs):**
+
+- Question-level split: **80/10/10** (no question overlap across splits)
+- Seeds: **11, 22, 33**; report mean AUROC
+- Optimizer/training: **Adam (1e-3)**, up to **300 epochs**, early stopping
+- Fusion: $s = (1-\lambda)s_M + \lambda s_V$, with $\lambda \in [0,1]$ tuned on validation
+- Test sizes are shown per target as `correct/CE` rows
 
 **Config 1: SmolLM3-3B + Phi-4-mini**
 
-| Target | Tgt | Ver | Fused |
-|---|---|---|---|
-| Claude 4.6 | .952 | **1.00** | .985 |
-| DeepSeek | .852 | **.878** | .875 |
-| GPT-5.2 | .935 | **.972** | .935 |
-| Grok 4 | .923 | **.949** | .923 |
-| Llama 4 | **.877** | .858 | .877 |
-| Qwen3 Next | **.915** | .884 | .914 |
-| **Mean** | .909 | .923 | **.918** |
-
-</div>
-<div>
+| Target | Tgt | Ver | Fused | λ | Test |
+|---|---:|---:|---:|---:|---|
+| Claude 4.6 | .952 | **1.00** | .985 | .27 | 15C/6CE |
+| DeepSeek | .852 | **.878** | .875 | .97 | 8C/16CE |
+| GPT-5.2 | .935 | **.972** | .935 | .00 | 6C/6CE |
+| Grok 4 | .923 | **.949** | .923 | .00 | 3C/13CE |
+| Llama 4 | **.877** | .858 | **.877** | .00 | 9C/13CE |
+| Qwen3 Next | **.915** | .884 | .914 | .45 | 16C/14CE |
+| **Mean** | .909 | .923 | **.918** |  |  |
 
 **Config 2: Qwen3.5-4B + Phi-4-mini**
 
-| Target | Tgt | Ver | Fused |
-|---|---|---|---|
-| Claude 4.6 | .941 | **1.00** | **1.00** |
-| DeepSeek | .844 | **.878** | .846 |
-| GPT-5.2 | .954 | **.972** | .954 |
-| Grok 4 | .897 | **.949** | .897 |
-| Llama 4 | **.880** | .858 | .877 |
-| Qwen3 Next | **.942** | .884 | .940 |
-| **Mean** | .910 | .923 | **.919** |
+| Target | Tgt | Ver | Fused | λ | Test |
+|---|---:|---:|---:|---:|---|
+| Claude 4.6 | .941 | **1.00** | **1.00** | .50 | 15C/6CE |
+| DeepSeek | .844 | **.878** | .846 | .05 | 8C/16CE |
+| GPT-5.2 | .954 | **.972** | .954 | .00 | 6C/6CE |
+| Grok 4 | .897 | **.949** | .897 | .00 | 3C/13CE |
+| Llama 4 | **.880** | .858 | .877 | .03 | 9C/13CE |
+| Qwen3 Next | **.942** | .884 | .940 | .25 | 16C/14CE |
+| **Mean** | .910 | .923 | **.919** |  |  |
 
 </div>
-</div>
 
-**AUROC visual — mean across both configs:**
-
-<div class="auroc-bars">
-  <div class="ab-row"><span class="ab-l">Claude</span><div class="ab-tgt" style="width:95.2%"></div><span class="ab-v">.952</span></div>
-  <div class="ab-row"><span class="ab-l">GPT-5.2</span><div class="ab-tgt" style="width:93.5%"></div><span class="ab-v">.935</span></div>
-  <div class="ab-row"><span class="ab-l">Qwen3</span><div class="ab-tgt" style="width:91.5%"></div><span class="ab-v">.915</span></div>
-  <div class="ab-row"><span class="ab-l">Grok 4</span><div class="ab-tgt" style="width:92.3%"></div><span class="ab-v">.923</span></div>
-  <div class="ab-row"><span class="ab-l">Llama 4</span><div class="ab-tgt" style="width:87.7%"></div><span class="ab-v">.877</span></div>
-  <div class="ab-row"><span class="ab-l">DeepSeek</span><div class="ab-tgt" style="width:85.2%"></div><span class="ab-v">.852</span></div>
-</div>
-
-<div class="obs-row" style="margin-top:0.3rem">
-<span class="kw">Verifier probe</span> strongest for <b>4/6 targets</b>. Fused occasionally below individual probe: λ optimised on validation — doesn't transfer to small test sets (12–30 items) <span class="cite">[Tan et al., 2025]</span>.
+<div class="obs-row" style="margin-top:0.25rem">
+<span class="kw">Verifier probe</span> is strongest for 4/6 targets. Because λ is selected on validation, fused AUROC can be slightly below the best single probe on small tests.
 </div>
 
 ---
@@ -645,76 +637,29 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 
 # Results — O3: Version-Evolution Study
 
-<div class="two-col" style="gap:1rem">
-<div>
+<div class="compact-tables o3-evo-table">
 
-**CE trajectory chart:**
+**Complete version-evolution table (from thesis; includes release dates):**
 
-<div class="trajectory-chart">
-  <div class="tc-yaxis"><span>20%</span><span>15%</span><span>10%</span><span>5%</span><span>0%</span></div>
-  <div class="tc-plot">
-    <!-- Grok line -->
-    <svg viewBox="0 0 300 130" width="100%" height="110" style="overflow:visible">
-      <!-- Grid lines -->
-      <line x1="0" y1="0" x2="300" y2="0" stroke="#e2e8f0" stroke-width="1"/>
-      <line x1="0" y1="32.5" x2="300" y2="32.5" stroke="#e2e8f0" stroke-width="1"/>
-      <line x1="0" y1="65" x2="300" y2="65" stroke="#e2e8f0" stroke-width="1"/>
-      <line x1="0" y1="97.5" x2="300" y2="97.5" stroke="#e2e8f0" stroke-width="1"/>
-      <line x1="0" y1="130" x2="300" y2="130" stroke="#e2e8f0" stroke-width="1"/>
-      <!-- Grok: 17.7 → 10.9 → 5.9 → 0.5  (scale: 20%=0, 0%=130 → y = 130 - val*6.5) -->
-      <polyline points="0,114.95 100,78.35 200,91.65 300,126.75" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linejoin="round"/>
-      <circle cx="0" cy="114.95" r="4" fill="#dc2626"/>
-      <circle cx="100" cy="78.35" r="4" fill="#dc2626"/>
-      <circle cx="200" cy="91.65" r="4" fill="#dc2626"/>
-      <circle cx="300" cy="126.75" r="5" fill="#dc2626"/>
-      <!-- Llama: 9.8 → 7.2 → 17.5 → 15.5 -->
-      <polyline points="0,36.3 100,83.2 200,16.25 300,29.25" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="6 3"/>
-      <circle cx="0" cy="36.3" r="4" fill="#2563eb"/>
-      <circle cx="100" cy="83.2" r="4" fill="#2563eb"/>
-      <circle cx="200" cy="16.25" r="4" fill="#2563eb"/>
-      <circle cx="300" cy="29.25" r="4" fill="#2563eb"/>
-      <!-- Qwen: 13.3 → 17.2 → 12.5 → 18.3 -->
-      <polyline points="0,43.55 100,18.2 200,48.75 300,11.05" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linejoin="round" stroke-dasharray="3 3"/>
-      <circle cx="0" cy="43.55" r="4" fill="#16a34a"/>
-      <circle cx="100" cy="18.2" r="4" fill="#16a34a"/>
-      <circle cx="200" cy="48.75" r="4" fill="#16a34a"/>
-      <circle cx="300" cy="11.05" r="4" fill="#16a34a"/>
-      <text x="0" y="145" font-size="10" fill="#64748b">v1</text>
-      <text x="95" y="145" font-size="10" fill="#64748b">v2</text>
-      <text x="195" y="145" font-size="10" fill="#64748b">v3</text>
-      <text x="295" y="145" font-size="10" fill="#64748b">v4</text>
-    </svg>
-  </div>
-</div>
-
-<div class="evo-legend">
-  <span class="evo-chip grok">Grok (17.7→0.5, monotonic)</span>
-  <span class="evo-chip llama">Llama (9.8→15.5, non-monotonic)</span>
-  <span class="evo-chip qwen">Qwen (13.3→18.3, non-monotonic)</span>
-</div>
+| Family | Ver | Model | Release | Acc. | CE | IE | CE% | CE/Wr |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| Grok | v1 | Grok 3 | 2025-02 | 56.8 | 143 | 175 | 17.7 | 45.0 |
+| Grok | v2 | Grok 4 | 2025-07 | 57.1 | 88 | 232 | 10.9 | 27.5 |
+| Grok | v3 | Grok 4.1 Fast R. | 2025-11 | 71.3 | 48 | 153 | 5.9 | 23.9 |
+| Grok | v4 | Grok 4.20 Beta | 2026-03 | 79.7 | 4 | 133 | 0.5 | 2.9 |
+| Llama | v1 | Llama 3 8B | 2024-04 | 38.7 | 79 | 368 | 9.8 | 17.7 |
+| Llama | v2 | Llama 3.1 8B | 2024-07 | 43.7 | 58 | 331 | 7.2 | 14.9 |
+| Llama | v3 | Llama 3.3 70B | 2024-12 | 52.3 | 141 | 191 | 17.5 | 42.5 |
+| Llama | v4 | Llama 4 Mav. 17B | 2025-04 | 52.4 | 125 | 206 | 15.5 | 37.8 |
+| Qwen | v1 | Qwen2.5 7B | 2024-09 | 45.8 | 107 | 285 | 13.3 | 27.3 |
+| Qwen | v2 | Qwen2.5 72B | 2024-09 | 57.4 | 139 | 162 | 17.2 | 46.2 |
+| Qwen | v3 | Qwen3 30B A3B | 2025-04 | 58.1 | 101 | 197 | 12.5 | 33.9 |
+| Qwen | v4 | Qwen3 Next 80B | 2025-09 | 65.2 | 148 | 99 | 18.3 | 59.9 |
 
 </div>
-<div>
 
-**Key numbers (all CE points):**
-
-| Family | v1 | v2 | v3 | v4 | v1→v4 |
-|---|---|---|---|---|---|
-| **Grok CE%** | 17.7 | 10.9 | 5.9 | **0.5** | **-17.2** |
-| **Llama CE%** | 9.8 | 7.2 | 17.5 | 15.5 | +5.7 |
-| **Qwen CE%** | 13.3 | 17.2 | 12.5 | 18.3 | +5.0 |
-
-**Accuracy improved in all families; CE did not:**
-
-| Family | v1 acc | v4 acc | Δ acc |
-|---|---|---|---|
-| Grok | 56.8 | 79.7 | +22.9 |
-| Llama | 38.7 | 52.4 | +13.7 |
-| Qwen | 45.8 | 65.2 | +19.4 |
-
-<span class="kw">Accuracy</span> and CE are **partially orthogonal**. CE reduction requires **explicit targeting** <span class="cite">[Tan et al., 2025]</span>.
-
-</div>
+<div class="callout warn" style="margin-top:0.4rem">
+Accuracy rises across all families, but CE trajectories diverge: only Grok decreases monotonically (17.7%→0.5%), while Llama and Qwen remain non-monotonic.
 </div>
 
 <div class="citefoot">
