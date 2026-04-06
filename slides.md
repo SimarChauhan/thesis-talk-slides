@@ -588,6 +588,20 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 | Qwen3 Next | **.915** | .884 | .914 | .45 | 16C/14CE |
 | **Mean** | .909 | .923 | **.918** |  |  |
 
+</div>
+
+<div class="obs-row" style="margin-top:0.25rem">
+<span class="kw">Verifier probe</span> is strongest for 4/6 targets. Because λ is selected on validation, fused AUROC can be slightly below the best single probe on small tests.
+</div>
+
+---
+
+# Results — O2: White-Box Probe Performance (Config 2)
+
+<div class="compact-tables o2-detail-table">
+
+**Protocol:** same 80/10/10 question-level split · seeds 11/22/33 · Adam 1e-3 · up to 300 epochs + early stop · λ tuned on validation.
+
 **Config 2: Qwen3.5-4B + Phi-4-mini**
 
 | Target | Tgt | Ver | Fused | λ | Test |
@@ -603,7 +617,7 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 </div>
 
 <div class="obs-row" style="margin-top:0.25rem">
-<span class="kw">Verifier probe</span> is strongest for 4/6 targets. Because λ is selected on validation, fused AUROC can be slightly below the best single probe on small tests.
+Fused AUROC tracks Config 1 closely (mean ~0.92), showing proxy probing is not encoder-specific.
 </div>
 
 ---
