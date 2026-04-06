@@ -21,8 +21,8 @@ CS4490 - Undergraduate Thesis<br>
 Department of Computer Science, Western University
 </div>
 <div>
-Thesis Supervisor: Prof. Lucian Ilie
-Course Coordinator: Prof. Nazim Madhavji
+Thesis Supervisor: Prof. Lucian Ilie<br>
+Course Coordinator: Prof. Nazim Madhavji<br>
 April 2026
 </div>
 </div>
