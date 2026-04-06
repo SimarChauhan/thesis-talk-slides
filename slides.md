@@ -36,13 +36,13 @@ April 2026
 <div class="two-col" style="gap:1.2rem">
 <div>
 
-- LLMs deployed in healthcare, legal, finance — a confidently stated falsehood causes real harm <span class="cite">[Huang et al., 2025; Ji et al., 2023]</span>.
+- LLMs deployed in healthcare, legal, finance - a confidently stated falsehood causes real harm <span class="cite">[Huang et al., 2025; Ji et al., 2023]</span>.
 - <span class="kw">Hallucination</span>: fluent, confident, factually wrong output <span class="cite">[Ji et al., 2023]</span>.
 - **Research gap** <span class="cite">[Tan et al., 2025]</span>: CE studied only on open-source models; no proxy probing; no longitudinal tracking.
 
 <div class="callout warn" style="margin-top:0.6rem">
-  <b>Definition — <span class="kw">Self-Consistent Error (CE)</span></b> <span class="cite">[Tan et al., 2025]</span>:<br>
-  Greedy answer a<sub>g</sub> is <em>incorrect</em> and all stochastic samples are semantically equivalent to a<sub>g</sub>. Confidently wrong, no variation — detectors classify it as <em>reliable</em>.
+  <b>Definition - <span class="kw">Self-Consistent Error (CE)</span></b> <span class="cite">[Tan et al., 2025]</span>:<br>
+  Greedy answer a<sub>g</sub> is <em>incorrect</em> and all stochastic samples are semantically equivalent to a<sub>g</sub>. Confidently wrong, no variation - detectors classify it as <em>reliable</em>.
 </div>
 
 </div>
@@ -135,9 +135,9 @@ April 2026
 <div>
 
 - **Hallucination** <span class="cite">[Ji et al., 2023]</span>: fluent, factually unsupported output. This thesis focuses on <span class="kw">factuality hallucinations</span> in closed-book QA.
-- **<span class="kw">TruthfulQA</span>** <span class="cite">[Lin et al., 2022]</span>: 817 questions across 38 categories targeting <span class="kw">imitative falsehoods</span> — popular but incorrect beliefs. Unlike TriviaQA <span class="cite">[Joshi et al., 2017]</span>, it targets confident misinformation. This thesis uses 807 questions.
+- **<span class="kw">TruthfulQA</span>** <span class="cite">[Lin et al., 2022]</span>: 817 questions across 38 categories targeting <span class="kw">imitative falsehoods</span> - popular but incorrect beliefs. Unlike TriviaQA <span class="cite">[Joshi et al., 2017]</span>, it targets confident misinformation. This thesis uses 807 questions.
 - **CE formalization** <span class="cite">[Tan et al., 2025]</span>: CE does *not* decrease with model scale; existing detectors degrade substantially on CEs.
-- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: structurally blind to CEs — uniform outputs register as reliable.
+- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: structurally blind to CEs - uniform outputs register as reliable.
 
 </div>
 <div>
@@ -179,14 +179,14 @@ April 2026
 </div>
 <div>
 
-**Research gap — this thesis adds the three missing columns:**
+**Research gap - this thesis adds the three missing columns:**
 
 <div class="gap-visual">
 <div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy</span><span>Longit.</span></div>
-<div class="gap-row"><span>Lin et al., 2022</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span></div>
-<div class="gap-row"><span>Azaria et al., 2023</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span></div>
-<div class="gap-row"><span>Manakul et al., 2023</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span></div>
-<div class="gap-row"><span>Tan et al., 2025</span><span class="gc">✓</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span></div>
+<div class="gap-row"><span>Lin et al., 2022</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
+<div class="gap-row"><span>Azaria et al., 2023</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
+<div class="gap-row"><span>Manakul et al., 2023</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
+<div class="gap-row"><span>Tan et al., 2025</span><span class="gc">✓</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
 <div class="gap-row this-thesis"><span><b>This thesis</b></span><span class="gc">✓</span><span class="gnew">✓</span><span class="gnew">✓</span><span class="gnew">✓</span></div>
 </div>
 
@@ -244,7 +244,7 @@ April 2026
 </div>
 <div>
 
-**Semantic equivalence — hybrid two-tier:**
+**Semantic equivalence - hybrid two-tier:**
 
 <div class="nli-diagram">
   <div class="nli-step"><span class="nli-pct">96–98%</span> DeBERTa NLI <span class="cite">[He et al., 2021]</span><br><small>High-confidence pairs (≥0.70 or ≤0.30)</small></div>
@@ -262,7 +262,7 @@ April 2026
 
 ---
 
-# EXAMPLE — Error Classification
+# EXAMPLE - Error Classification
 
 ## The 2×2 grid and a concrete CE instance
 
@@ -290,7 +290,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 <div class="example-box">
   <div class="ex-q">❓ <em>"What happens if you swallow gum?"</em></div>
   <div class="ex-correct">✅ <b>Correct answer:</b> gum passes through the digestive system normally.</div>
-  <div class="ex-ce-label">🔴 CE — model answers:</div>
+  <div class="ex-ce-label">🔴 CE - model answers:</div>
   <div class="ex-ce-answer">"It stays in your stomach for seven years"</div>
   <div class="ex-samples">
     <span class="s-badge">S1 ≡</span><span class="s-badge">S2 ≡</span><span class="s-badge">S3 ≡</span>
@@ -315,7 +315,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 <div class="two-col" style="gap:0.9rem">
 <div>
 
-**Why proxies?** Claude / GPT / Grok are API-only — hidden states inaccessible. DeepSeek too large for Nibi cluster. Key assumption: a small <span class="kw">proxy encoder</span> of the same Q+A text can detect CEs comparably to the target's own hidden states.
+**Why proxies?** Claude / GPT / Grok are API-only - hidden states inaccessible. DeepSeek too large for Nibi cluster. Key assumption: a small <span class="kw">proxy encoder</span> of the same Q+A text can detect CEs comparably to the target's own hidden states.
 
 **Two configurations:**
 
@@ -409,15 +409,15 @@ Best layer per model selected by validation <span class="kw">AUROC</span>.
 <div class="threat-list">
   <div class="threat-item">
     <span class="threat-icon">⚠</span>
-    <div><b><span class="kw">Small test sets</span></b> — GPT-5.2: 12 items; Grok 4: 16 items → high AUROC variance. Interpret cautiously.</div>
+    <div><b><span class="kw">Small test sets</span></b> - GPT-5.2: 12 items; Grok 4: 16 items → high AUROC variance. Interpret cautiously.</div>
   </div>
   <div class="threat-item">
     <span class="threat-icon">⚠</span>
-    <div><b><span class="kw">Single benchmark</span></b> — TruthfulQA targets misconceptions, so CE rates here likely higher than on general QA.</div>
+    <div><b><span class="kw">Single benchmark</span></b> - TruthfulQA targets misconceptions, so CE rates here likely higher than on general QA.</div>
   </div>
   <div class="threat-item">
     <span class="threat-icon">⚠</span>
-    <div><b><span class="kw">Shared judge bias</span></b> — 3-judge ensemble reduces but does not eliminate systematic blind spots across providers.</div>
+    <div><b><span class="kw">Shared judge bias</span></b> - 3-judge ensemble reduces but does not eliminate systematic blind spots across providers.</div>
   </div>
 </div>
 
@@ -443,11 +443,11 @@ Best layer per model selected by validation <span class="kw">AUROC</span>.
 <div class="result-pills">
   <div class="r-pill o1"><b>O1</b> CEs common across all 6 models · CE% 7.6–18.3% · no model CE-free</div>
   <div class="r-pill o2"><b>O2</b> Proxy probing strong · gap vs direct ≤ 0.03 AUROC</div>
-  <div class="r-pill o3"><b>O3</b> Accuracy ↑ in all families · CE did not follow — partially orthogonal</div>
+  <div class="r-pill o3"><b>O3</b> Accuracy ↑ in all families · CE did not follow - partially orthogonal</div>
 </div>
 
 <div class="callout warn" style="margin-top:0.5rem; font-size:0.8rem">
-Higher accuracy does <b>not</b> guarantee lower CE — Claude (74.7% acc.) has a <em>higher</em> CE rate (11.3%) than GPT-5.2 (7.6% CE, 69.8% acc.) <span class="cite">[Tan et al., 2025]</span>.
+Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <em>higher</em> CE rate (11.3%) than GPT-5.2 (7.6% CE, 69.8% acc.) <span class="cite">[Tan et al., 2025]</span>.
 </div>
 
 <div class="citefoot">
@@ -456,14 +456,14 @@ Higher accuracy does <b>not</b> guarantee lower CE — Claude (74.7% acc.) has a
 
 ---
 
-# Results — O1: Black-Box CE Prevalence
+# Results - O1: Black-Box CE Prevalence
 
 ## Aggregate and per-model breakdown (t = 1.0)
 
 <div class="two-col" style="gap:1rem">
 <div>
 
-**4,842 rows — outcome split:**
+**4,842 rows - outcome split:**
 
 <div class="donut-area">
   <div class="donut-ring">
@@ -518,7 +518,7 @@ Higher accuracy does <b>not</b> guarantee lower CE — Claude (74.7% acc.) has a
 
 ---
 
-# Results — O1: Cross-Model Overlap & Categories
+# Results - O1: Cross-Model Overlap & Categories
 
 <div class="two-col" style="gap:1rem">
 <div>
@@ -535,7 +535,7 @@ Higher accuracy does <b>not</b> guarantee lower CE — Claude (74.7% acc.) has a
   <div class="ov-overlap"><small>shared<br>~28%</small></div>
   <div class="ov-circle c2">Model B<br><small>CEs</small></div>
 </div>
-<small style="font-size:0.65rem">73.5% of shared CEs use the <em>same wrong answer</em> — memorized misconceptions</small>
+<small style="font-size:0.65rem">73.5% of shared CEs use the <em>same wrong answer</em> - memorized misconceptions</small>
 
 </div>
 <div>
@@ -564,7 +564,7 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 
 ---
 
-# Results — O2: White-Box Probe Performance
+# Results - O2: White-Box Probe Performance
 
 <div class="compact-tables o2-detail-table">
 
@@ -596,7 +596,7 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 
 ---
 
-# Results — O2: White-Box Probe Performance (Config 2)
+# Results - O2: White-Box Probe Performance (Config 2)
 
 <div class="compact-tables o2-detail-table">
 
@@ -622,7 +622,7 @@ Fused AUROC tracks Config 1 closely (mean ~0.92), showing proxy probing is not e
 
 ---
 
-# Results — O2: Original Cross-Model Baseline
+# Results - O2: Original Cross-Model Baseline
 
 Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally, Nibi HPC <span class="cite">[UWaterloo, 2025]</span>):
 
@@ -639,7 +639,7 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
   <div class="gc-item"><span class="gc-label">Proxy (Qwen3.5)</span><div class="gc-bar proxy-bar" style="width:91.9%"></div><span class="gc-val">0.919</span></div>
   <div class="gc-item"><span class="gc-label">Direct (Llama 4)</span><div class="gc-bar direct-bar" style="width:87.2%"></div><span class="gc-val">0.872</span></div>
   <div class="gc-item"><span class="gc-label">Direct (Qwen3 Next)</span><div class="gc-bar direct-bar" style="width:94.6%"></div><span class="gc-val">0.946</span></div>
-  <div class="gc-note">↑ Gap ≤ 0.03 AUROC — proxy matches direct extraction</div>
+  <div class="gc-note">↑ Gap ≤ 0.03 AUROC - proxy matches direct extraction</div>
 </div>
 
 <div class="citefoot">
@@ -649,7 +649,7 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 
 ---
 
-# Results — O3: Version-Evolution Study
+# Results - O3: Version-Evolution Study
 
 <div class="compact-tables o3-evo-table">
 
@@ -693,7 +693,7 @@ Accuracy rises across all families, but CE trajectories diverge: only Grok decre
 
 <div class="gap-visual">
 <div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy</span><span>Longit.</span></div>
-<div class="gap-row"><span>Tan et al., 2025</span><span class="gc">✓</span><span class="gx">—</span><span class="gx">—</span><span class="gx">—</span></div>
+<div class="gap-row"><span>Tan et al., 2025</span><span class="gc">✓</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
 <div class="gap-row this-thesis"><span><b>This thesis</b></span><span class="gc">✓</span><span class="gnew">✓</span><span class="gnew">✓</span><span class="gnew">✓</span></div>
 </div>
 
@@ -708,7 +708,7 @@ Three new capabilities unlocked for the first time.
 <div class="new-card">
   <div class="nc-badge">NEW</div>
   <b>CE in API-only targets</b><br>
-  Claude, GPT-5.2, Grok 4 — hidden states never accessible. Was impossible before this work.
+  Claude, GPT-5.2, Grok 4 - hidden states never accessible. Was impossible before this work.
 </div>
 <div class="new-card">
   <div class="nc-badge">GAP</div>
@@ -738,9 +738,9 @@ Three new capabilities unlocked for the first time.
 
 ## Impact on Theory
 
-- **<span class="kw">Accuracy</span> and CE are partially orthogonal** <span class="cite">[Tan et al., 2025]</span>: DeepSeek (60.3% acc.) vs Grok 4 (57.1% acc.) — 3.2 pp accuracy gap, but **6.8 pp CE rate gap**. Accuracy-only evaluation is incomplete.
-- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a 3B local encoder detects CEs in much larger closed-source targets — factual-error signal is in the *text*, not one model's architecture.
-- **CE does not decrease automatically** with scale or generation — requires explicit targeting <span class="cite">[Tan et al., 2025]</span>.
+- **<span class="kw">Accuracy</span> and CE are partially orthogonal** <span class="cite">[Tan et al., 2025]</span>: DeepSeek (60.3% acc.) vs Grok 4 (57.1% acc.) - 3.2 pp accuracy gap, but **6.8 pp CE rate gap**. Accuracy-only evaluation is incomplete.
+- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a 3B local encoder detects CEs in much larger closed-source targets - factual-error signal is in the *text*, not one model's architecture.
+- **CE does not decrease automatically** with scale or generation - requires explicit targeting <span class="cite">[Tan et al., 2025]</span>.
 
 </div>
 <div>
@@ -750,11 +750,11 @@ Three new capabilities unlocked for the first time.
 <div class="practice-cards">
 <div class="pcard danger">
   <span class="pcard-icon">🚨</span>
-  <div><b><span class="kw">Consistency monitoring misses CEs</span></b> <span class="cite">[Manakul et al., 2023]</span><br>Sampling + agreement check sees perfect agreement on a CE — dangerous in healthcare, legal, education.</div>
+  <div><b><span class="kw">Consistency monitoring misses CEs</span></b> <span class="cite">[Manakul et al., 2023]</span><br>Sampling + agreement check sees perfect agreement on a CE - dangerous in healthcare, legal, education.</div>
 </div>
 <div class="pcard green">
   <span class="pcard-icon">🔍</span>
-  <div><b><span class="kw">Proxy probing enables monitoring</span></b><br>Run a 3B local encoder on production queries periodically to estimate CE risk — no model internals needed.</div>
+  <div><b><span class="kw">Proxy probing enables monitoring</span></b><br>Run a 3B local encoder on production queries periodically to estimate CE risk - no model internals needed.</div>
 </div>
 <div class="pcard blue">
   <span class="pcard-icon">🏆</span>
@@ -785,13 +785,13 @@ GPT-5.2: 12 items; Grok 4: 16 items → high <span class="kw">AUROC</span> varia
 <div class="limit-card">
 <div class="lc-icon">📚</div>
 <b><span class="kw">Single benchmark</span></b><br>
-All on <span class="kw">TruthfulQA</span> — targets misconceptions, CE rates likely inflated vs general QA.<br>
+All on <span class="kw">TruthfulQA</span> - targets misconceptions, CE rates likely inflated vs general QA.<br>
 <em>Addressable:</em> extend to TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span>.
 </div>
 <div class="limit-card">
 <div class="lc-icon">🖥️</div>
 <b><span class="kw">No DeepSeek direct baseline</span></b><br>
-DeepSeek V3.2 too large for Nibi cluster — proxy-only; original-vs-proxy comparison unavailable.<br>
+DeepSeek V3.2 too large for Nibi cluster - proxy-only; original-vs-proxy comparison unavailable.<br>
 <em>Addressable:</em> larger compute resources.
 </div>
 <div class="limit-card">
@@ -818,22 +818,22 @@ Last-token hidden state tested on short factual answers only. Long-form needs to
 <div class="val-card">
 <div class="vc-icon">⚖️</div>
 <b><span class="kw">3-judge ensemble</span></b><br>
-GPT + Claude + Grok — majority vote (2/3). Distinct providers prevent shared grading bias. 96–98% pair coverage by DeBERTa NLI <span class="cite">[He et al., 2021]</span>; 2–4% borderline cases escalated to GPT-5.2.
+GPT + Claude + Grok - majority vote (2/3). Distinct providers prevent shared grading bias. 96–98% pair coverage by DeBERTa NLI <span class="cite">[He et al., 2021]</span>; 2–4% borderline cases escalated to GPT-5.2.
 </div>
 <div class="val-card">
 <div class="vc-icon">🎲</div>
 <b><span class="kw">3 random seeds</span> (11, 22, 33)</b><br>
-AUROC reported as mean across seeds. <span class="kw">Question-level splits</span> (80/10/10) — same question never in both train and test. Z-score normalisation on train statistics only.
+AUROC reported as mean across seeds. <span class="kw">Question-level splits</span> (80/10/10) - same question never in both train and test. Z-score normalisation on train statistics only.
 </div>
 <div class="val-card">
 <div class="vc-icon">🔁</div>
 <b><span class="kw">Two proxy architectures</span></b><br>
-SmolLM3-3B vs Qwen3.5-4B (different families, different parameter counts) both achieve mean AUROC ~0.92 — approach is not encoder-specific.
+SmolLM3-3B vs Qwen3.5-4B (different families, different parameter counts) both achieve mean AUROC ~0.92 - approach is not encoder-specific.
 </div>
 <div class="val-card">
 <div class="vc-icon">📊</div>
 <b><span class="kw">Proxy vs direct comparison</span></b><br>
-Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy–baseline gap ≤ 0.03 AUROC — validates the proxy assumption.
+Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy-baseline gap ≤ 0.03 AUROC - validates the proxy assumption.
 </div>
 </div>
 
@@ -850,11 +850,11 @@ With reference to objectives O1–O3 and the results obtained:
 <div class="conclusion-rows">
 <div class="conc-row">
   <div class="conc-badge o1b">O1</div>
-  <div><b>CEs are common</b> [Tables 2–3]: 42.1% of incorrect answers self-consistent at t=1.0. <span class="kw">CE%</span> 7.6–18.3% — no model is CE-free. Higher accuracy ≠ fewer CEs.</div>
+  <div><b>CEs are common</b> [Tables 2–3]: 42.1% of incorrect answers self-consistent at t=1.0. <span class="kw">CE%</span> 7.6–18.3% - no model is CE-free. Higher accuracy ≠ fewer CEs.</div>
 </div>
 <div class="conc-row">
   <div class="conc-badge o2b">O2</div>
-  <div><b>Proxy probes detect CEs effectively</b> [Tables 6–7]: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean 0.92) across all 6 targets including 3 API-only. Gap ≤ 0.03 vs direct — no hidden-state access needed.</div>
+  <div><b>Proxy probes detect CEs effectively</b> [Tables 6–7]: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean 0.92) across all 6 targets including 3 API-only. Gap ≤ 0.03 vs direct - no hidden-state access needed.</div>
 </div>
 <div class="conc-row">
   <div class="conc-badge o3b">O3</div>
@@ -881,10 +881,10 @@ With reference to objectives O1–O3 and the results obtained:
 ## Future Work
 
 <div class="future-list">
-<div class="fw-item"><span class="fw-icon">📖</span><div><b>Multi-benchmark:</b> TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span> — do CE patterns hold beyond TruthfulQA?</div></div>
-<div class="fw-item"><span class="fw-icon">🧠</span><div><b>Reasoning models:</b> Grok 4.20 Beta reaches 0.5% CE — controlled reasoning-on vs off comparison <span class="cite">[Wei et al., 2022]</span>.</div></div>
+<div class="fw-item"><span class="fw-icon">📖</span><div><b>Multi-benchmark:</b> TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span> - do CE patterns hold beyond TruthfulQA?</div></div>
+<div class="fw-item"><span class="fw-icon">🧠</span><div><b>Reasoning models:</b> Grok 4.20 Beta reaches 0.5% CE - controlled reasoning-on vs off comparison <span class="cite">[Wei et al., 2022]</span>.</div></div>
 <div class="fw-item"><span class="fw-icon">📈</span><div><b>Larger proxies:</b> 7B–13B encoders to map detection–cost trade-off.</div></div>
-<div class="fw-item"><span class="fw-icon">🗂️</span><div><b>Category analysis:</b> Confusion: People (50%), Misquotations (38.9%) — replicate on other benchmarks.</div></div>
+<div class="fw-item"><span class="fw-icon">🗂️</span><div><b>Category analysis:</b> Confusion: People (50%), Misquotations (38.9%) - replicate on other benchmarks.</div></div>
 </div>
 
 </div>
@@ -897,7 +897,7 @@ With reference to objectives O1–O3 and the results obtained:
   <div class="lnum">1</div>
   <div>
     <b><span class="kw">Proxy probing</span> is viable.</b><br>
-    3B–4B encoders achieve fused AUROC 0.85–1.00 across all 6 targets; proxy–baseline gap ≤ 0.03. No target loading required — enables <span class="kw">white-box</span> CE detection for any model.
+    3B–4B encoders achieve fused AUROC 0.85–1.00 across all 6 targets; proxy-baseline gap ≤ 0.03. No target loading required - enables <span class="kw">white-box</span> CE detection for any model.
   </div>
 </div>
 <div class="lesson-card">
@@ -930,7 +930,7 @@ Backup slides for Q&A:
 
 ---
 
-# EXTRA MATERIAL — White-Box Test Partition Sizes
+# EXTRA MATERIAL - White-Box Test Partition Sizes
 
 | Target | Correct | CE | Total | Note |
 |---|---|---|---|---|
@@ -945,7 +945,7 @@ Backup slides for Q&A:
 
 ---
 
-# EXTRA MATERIAL — Prompt Template & Sampling
+# EXTRA MATERIAL - Prompt Template & Sampling
 
 ```text
 Answer the following question concisely and directly in one or two
@@ -965,7 +965,7 @@ Question: {question}
 
 ---
 
-# EXTRA MATERIAL — Full References
+# EXTRA MATERIAL - Full References
 
 - Azaria, A. & Mitchell, T. (2023). The Internal State of an LLM Knows When It's Lying. *Findings of EMNLP*, pp. 967–976. ACL.
 - Farquhar, S., Kossen, J., Kuhn, L., & Gal, Y. (2024). Detecting Hallucinations in LLMs Using Semantic Entropy. *Nature, 630*, pp. 625–630.
