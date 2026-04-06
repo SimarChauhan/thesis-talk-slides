@@ -17,13 +17,13 @@ layout: cover
 <div class="meta-grid">
 <div>
 <b>Simranjeet Singh</b><br>
-CS4490 / 4460 / 3380 — Undergraduate Thesis<br>
+CS4490 - Undergraduate Thesis<br>
 Department of Computer Science, Western University
 </div>
 <div>
-Thesis Supervisor: Prof. Lucian Ilie, Dept. of Computer Science<br>
-Course Coordinator: Prof. Nazim Madhavji, Dept. of Computer Science<br>
-March 2026
+Thesis Supervisor: Prof. Lucian Ilie
+Course Coordinator: Prof. Nazim Madhavji
+April 2026
 </div>
 </div>
 
