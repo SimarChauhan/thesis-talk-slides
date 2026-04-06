@@ -554,6 +554,23 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
 .trajectory-chart { display: flex; gap: 0.3rem; }
 .tc-yaxis { display: flex; flex-direction: column; justify-content: space-between; font-size: 0.6rem; color: #94a3b8; padding-right: 0.2rem; padding-bottom: 1rem; }
 .tc-plot { flex: 1; }
+.evo-legend {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+.evo-chip {
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.12rem 0.36rem;
+  border-radius: 999px;
+  border: 1px solid;
+}
+.evo-chip.grok  { color: #7f1d1d; background: rgba(220,38,38,0.09); border-color: rgba(220,38,38,0.35); }
+.evo-chip.llama { color: #1e3a8a; background: rgba(37,99,235,0.09); border-color: rgba(37,99,235,0.35); }
+.evo-chip.qwen  { color: #14532d; background: rgba(22,163,74,0.09); border-color: rgba(22,163,74,0.35); }
 
 /* ============================================================
    WHAT'S NEW — "NEW" cards

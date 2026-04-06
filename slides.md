@@ -679,10 +679,6 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
       <circle cx="100" cy="18.2" r="4" fill="#16a34a"/>
       <circle cx="200" cy="48.75" r="4" fill="#16a34a"/>
       <circle cx="300" cy="11.05" r="4" fill="#16a34a"/>
-      <!-- Labels -->
-      <text x="305" y="130" font-size="11" fill="#dc2626" font-weight="bold">Grok ↓</text>
-      <text x="305" y="33" font-size="11" fill="#2563eb">Llama</text>
-      <text x="305" y="14" font-size="11" fill="#16a34a">Qwen</text>
       <text x="0" y="145" font-size="10" fill="#64748b">v1</text>
       <text x="95" y="145" font-size="10" fill="#64748b">v2</text>
       <text x="195" y="145" font-size="10" fill="#64748b">v3</text>
@@ -691,24 +687,30 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
   </div>
 </div>
 
+<div class="evo-legend">
+  <span class="evo-chip grok">Grok (17.7→0.5, monotonic)</span>
+  <span class="evo-chip llama">Llama (9.8→15.5, non-monotonic)</span>
+  <span class="evo-chip qwen">Qwen (13.3→18.3, non-monotonic)</span>
+</div>
+
 </div>
 <div>
 
-**Key numbers:**
+**Key numbers (all CE points):**
 
-| Family | v1 CE% | v4 CE% | Trend |
-|---|---|---|---|
-| **Grok** | 17.7 | **0.5** | ↓ monotonic |
-| **Llama** | 9.8 | 15.5 | ↑↓ non-monotonic |
-| **Qwen** | 13.3 | 18.3 | ↑↓ non-monotonic |
+| Family | v1 | v2 | v3 | v4 | v1→v4 |
+|---|---|---|---|---|---|
+| **Grok CE%** | 17.7 | 10.9 | 5.9 | **0.5** | **-17.2** |
+| **Llama CE%** | 9.8 | 7.2 | 17.5 | 15.5 | +5.7 |
+| **Qwen CE%** | 13.3 | 17.2 | 12.5 | 18.3 | +5.0 |
 
 **Accuracy improved in all families; CE did not:**
 
-| Family | v1 acc | v4 acc |
-|---|---|---|
-| Grok | 56.8 | 79.7 |
-| Llama | 38.7 | 52.4 |
-| Qwen | 45.8 | 65.2 |
+| Family | v1 acc | v4 acc | Δ acc |
+|---|---|---|---|
+| Grok | 56.8 | 79.7 | +22.9 |
+| Llama | 38.7 | 52.4 | +13.7 |
+| Qwen | 45.8 | 65.2 | +19.4 |
 
 <span class="kw">Accuracy</span> and CE are **partially orthogonal**. CE reduction requires **explicit targeting** <span class="cite">[Tan et al., 2025]</span>.
 
