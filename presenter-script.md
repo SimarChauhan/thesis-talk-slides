@@ -67,8 +67,9 @@ CE rates vary by model, but no model is CE-free.
 So this is not an edge case - it is a systematic reliability issue."
 
 ## Slide 13 - O1 Cross-Model Overlap and Categories
-"Most CEs are model-specific rather than universally shared, which supports cross-model detection strategies.  
-Category analysis also shows misconception-heavy categories are especially CE-prone, which is consistent with memorized false beliefs."
+"Pairwise shared CE overlap is about 22 to 36 percent Jaccard, mean under 28 percent, so roughly two thirds to three quarters of CE mass is not shared across models.  
+Open-weight pairs overlap more than closed-open pairs. Of 720 shared-CE instances, about three quarters repeat the same wrong answer.  
+Category analysis shows misconception-heavy categories are especially CE-prone."
 
 ## Slide 14 - O2 White-Box Probe Performance (Config 1)
 "Config 1 uses SmolLM3-3B with a Phi-4-mini verifier.  

@@ -525,17 +525,18 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 
 **Pairwise CE overlap (15 model pairs):**
 
-- <span class="kw">Jaccard</span> range: 0.219–0.360 (mean 0.277) → 64–78% of CE union is *not* shared
-- Most CEs are **model-specific** → supports cross-model detection <span class="cite">[Tan et al., 2025]</span>
-- Open-weight pairs overlap more (0.34–0.36) vs closed–open (~0.22–0.28)
-- Of 720 shared-CE instances: **529 (73.5%)** share the *same* wrong answer
+- **Shared CE overlap:** 21.9%–36.0% (mean 27.7%)
+- So about **64%–78.1% of CE cases are not shared**
+- Most CEs are **model-specific**
+- Open-weight pairs overlap more than closed–open pairs
+- Of 720 shared-CE instances, **73.5%** use the same wrong answer
 
 <div class="overlap-visual">
   <div class="ov-circle c1">Model A<br><small>CEs</small></div>
   <div class="ov-overlap"><small>shared<br>~28%</small></div>
   <div class="ov-circle c2">Model B<br><small>CEs</small></div>
 </div>
-<small style="font-size:0.65rem">73.5% of shared CEs use the <em>same wrong answer</em> - memorized misconceptions</small>
+<small style="font-size:0.65rem">73.5% of shared CE instances use the <em>same wrong answer</em> — memorized misconceptions <span class="cite">[Tan et al., 2025]</span></small>
 
 </div>
 <div>
