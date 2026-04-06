@@ -82,7 +82,8 @@ This suggests the approach is not tied to one specific small encoder family."
 
 ## Slide 16 - O2 Baseline Comparison
 "Here I compare proxy results against original direct hidden-state extraction where feasible.  
-The gap remains small, supporting the practicality of proxy probing when direct access is unavailable."
+The mean row pools all five baseline runs: mean fused CE AUROC is about 0.90, still close to the proxy means near 0.92.  
+That supports proxy probing when direct access is unavailable."
 
 ## Slide 17 - O3 Version-Evolution Study
 "This is the full version-evolution table, including release dates and all metrics.  

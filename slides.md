@@ -633,11 +633,10 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 | Llama 4 | Qwen3-Next-80B | .872 | **.909** | .883 | .18 |
 | Qwen3 Next | Llama-3.1-8B | **.946** | .929 | .936 | .92 |
 | Qwen3 Next | Qwen2.5-0.5B | **.946** | .924 | .946 | .53 |
-| **Mean (Llama 4, 3 verifiers)** | — | **.872** | **.890** | **.876** | — |
-| **Mean (Qwen3 Next, 2 verifiers)** | — | **.946** | **.927** | **.941** | — |
+| **Mean (5 runs)** | — | **.902** | **.905** | **.902** | — |
 
 <div class="obs-row" style="margin-top:0.35rem">
-<strong>Context:</strong> proxy configs on prior slides report <strong>mean fused CE AUROC 0.918</strong> (SmolLM3) and <strong>0.919</strong> (Qwen3.5) over six API targets (unweighted mean of per-target fused values; seeds 11/22/33). Rows above average only across verifier choice for each locally loaded target.
+<strong>Context:</strong> <strong>Mean</strong> is the unweighted average over all five direct runs above (not split by target). Proxy configs on prior slides: <strong>0.918</strong> / <strong>0.919</strong> mean fused CE AUROC over six API targets (seeds 11/22/33).
 </div>
 
 <div class="citefoot">
