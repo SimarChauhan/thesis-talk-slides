@@ -576,13 +576,16 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 - Fusion: $s = (1-\lambda)s_M + \lambda s_V$, with $\lambda \in [0,1]$ tuned on validation
 - Test sizes are shown per target as `correct/CE` rows
 
-**Split audit (all 6 targets combined; both configs, seed=42 split):**
+**Split audit per model (seed=42 split; both configs):**
 
-| Split | Correct (C) | CE |
-|---|---:|---:|
-| Train | 555 | 527 |
-| Validation | 41 | 58 |
-| Test | 57 | 68 |
+| Target | Train (C/CE) | Validation (C/CE) | Test (C/CE) |
+|---|---|---|---|
+| Claude 4.6 | 72/73 | 3/11 | 15/6 |
+| DeepSeek | 125/116 | 10/11 | 8/16 |
+| GPT-5.2 | 51/48 | 4/7 | 6/6 |
+| Grok 4 | 81/67 | 4/8 | 3/13 |
+| Llama 4 | 106/103 | 10/9 | 9/13 |
+| Qwen3 Next | 120/120 | 10/12 | 16/14 |
 
 **Config 1: SmolLM3-3B + Phi-4-mini**
 
@@ -610,13 +613,16 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 
 **Protocol:** same question-level split (**Train 80% / Validation 10% / Test 10%**) · seeds 11/22/33 · Adam 1e-3 · up to 300 epochs + early stop · λ tuned on validation.
 
-**Split audit (all 6 targets combined; same split as Config 1):**
+**Split audit per model (same split as Config 1):**
 
-| Split | Correct (C) | CE |
-|---|---:|---:|
-| Train | 555 | 527 |
-| Validation | 41 | 58 |
-| Test | 57 | 68 |
+| Target | Train (C/CE) | Validation (C/CE) | Test (C/CE) |
+|---|---|---|---|
+| Claude 4.6 | 72/73 | 3/11 | 15/6 |
+| DeepSeek | 125/116 | 10/11 | 8/16 |
+| GPT-5.2 | 51/48 | 4/7 | 6/6 |
+| Grok 4 | 81/67 | 4/8 | 3/13 |
+| Llama 4 | 106/103 | 10/9 | 9/13 |
+| Qwen3 Next | 120/120 | 10/12 | 16/14 |
 
 **Config 2: Qwen3.5-4B + Phi-4-mini**
 
