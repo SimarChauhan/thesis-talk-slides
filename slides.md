@@ -38,7 +38,7 @@ April 2026
 
 - LLMs deployed in healthcare, legal, finance - a confidently stated falsehood causes real harm <span class="cite">[Huang et al., 2025; Ji et al., 2023]</span>.
 - <span class="kw">Hallucination</span>: fluent, confident, factually wrong output <span class="cite">[Ji et al., 2023]</span>.
-- **Research gap** <span class="cite">[Tan et al., 2025]</span>: CE studied only on open-source models; no proxy probing; no longitudinal tracking.
+- **Research gap** <span class="cite">[Tan et al., 2025]</span>: prior CE work focused on open-weight models, did not evaluate API-only frontier targets, did not use proxy-only probing for hidden-state-inaccessible targets, and did not track CE longitudinally across model generations.
 
 <div class="callout warn" style="margin-top:0.6rem">
   <b>Definition - <span class="kw">Self-Consistent Error (CE)</span></b> <span class="cite">[Tan et al., 2025]</span>:<br>
@@ -98,9 +98,9 @@ April 2026
   <div class="finding-pill"><span class="finding-num">17.7→0.5%</span>Grok CE trajectory</div>
 </div>
 
-**Novelty** <span class="cite">[Tan et al., 2025]</span>: first CE measurement on closed-source API models; first proxy-based CE probing; first longitudinal CE tracking across model generations.
+**Novelty** <span class="cite">[Tan et al., 2025]</span>: first CE measurement on closed-source API models; first proxy-only CE probing for API-only frontier targets without target hidden-state access; first longitudinal CE tracking across model generations in this CE setting.
 
-**Impact:** CE is invisible to standard monitoring <span class="cite">[Manakul et al., 2023]</span>. Proxy probing enables CE monitoring for any API-served model without access to its internals <span class="cite">[Tan et al., 2025]</span>.
+**Impact:** CEs can evade sampling-based consistency monitoring <span class="cite">[Manakul et al., 2023; Tan et al., 2025]</span>. Proxy probing enables CE monitoring for API-served models without access to their internals <span class="cite">[Tan et al., 2025]</span>.
 
 <div class="citefoot">
 <span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
@@ -137,7 +137,7 @@ April 2026
 - **Hallucination** <span class="cite">[Ji et al., 2023]</span>: fluent, factually unsupported output. This thesis focuses on <span class="kw">factuality hallucinations</span> in closed-book QA.
 - **<span class="kw">TruthfulQA</span>** <span class="cite">[Lin et al., 2022]</span>: 817 questions across 38 categories targeting <span class="kw">imitative falsehoods</span> - popular but incorrect beliefs. Unlike TriviaQA <span class="cite">[Joshi et al., 2017]</span>, it targets confident misinformation. This thesis uses 807 questions.
 - **CE formalization** <span class="cite">[Tan et al., 2025]</span>: CE does *not* decrease with model scale; existing detectors degrade substantially on CEs.
-- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: structurally blind to CEs - uniform outputs register as reliable.
+- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: sampling-based consistency methods can miss CEs, because repeated wrong answers may still appear consistent and therefore reliable.
 
 </div>
 <div>
@@ -172,7 +172,7 @@ April 2026
 <div>
 
 - **<span class="kw">Hidden-state probing</span>** <span class="cite">[Azaria & Mitchell, 2023]</span>: classifiers on activations distinguish true from false statements, outperforming output-probability baselines.
-- **Factuality probes** <span class="cite">[Han et al., 2025]</span>: lightweight probes on hidden states match expensive multi-sample detectors.
+- **Factuality probes** <span class="cite">[Han et al., 2025]</span>: lightweight probes on hidden states achieve competitive performance with expensive multi-sample detectors at much lower inference cost.
 - **Cross-model probe** <span class="cite">[Tan et al., 2025]</span>: a second "verifier" model picks up error signals the response model misses. Fused score: s = (1−λ)s_M + λs_V.
 - **<span class="kw">Semantic entropy</span>** <span class="cite">[Farquhar et al., 2024; Kossen et al., 2024]</span>: meaning-level uncertainty catches confabulations, approximable from hidden states.
 
@@ -182,7 +182,7 @@ April 2026
 **Research gap - this thesis adds the three missing columns:**
 
 <div class="gap-visual">
-<div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy</span><span>Longit.</span></div>
+<div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy-only</span><span>Longit.</span></div>
 <div class="gap-row"><span>Lin et al., 2022</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
 <div class="gap-row"><span>Azaria et al., 2023</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
 <div class="gap-row"><span>Manakul et al., 2023</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
@@ -692,12 +692,12 @@ Accuracy rises across all families, but CE trajectories diverge: only Grok decre
 **What prior work could not do** <span class="cite">[Tan et al., 2025]</span>:
 
 <div class="gap-visual">
-<div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy</span><span>Longit.</span></div>
+<div class="gap-row header"><span>Study</span><span>CE</span><span>API</span><span>Proxy-only</span><span>Longit.</span></div>
 <div class="gap-row"><span>Tan et al., 2025</span><span class="gc">✓</span><span class="gx">-</span><span class="gx">-</span><span class="gx">-</span></div>
 <div class="gap-row this-thesis"><span><b>This thesis</b></span><span class="gc">✓</span><span class="gnew">✓</span><span class="gnew">✓</span><span class="gnew">✓</span></div>
 </div>
 
-Three new capabilities unlocked for the first time.
+Three capabilities combined here in one CE study.
 
 </div>
 <div>
@@ -708,7 +708,7 @@ Three new capabilities unlocked for the first time.
 <div class="new-card">
   <div class="nc-badge">NEW</div>
   <b>CE in API-only targets</b><br>
-  Claude, GPT-5.2, Grok 4 - hidden states never accessible. Was impossible before this work.
+  Claude, GPT-5.2, and Grok 4 extend CE measurement to hidden-state-inaccessible frontier APIs.
 </div>
 <div class="new-card">
   <div class="nc-badge">GAP</div>
@@ -717,8 +717,8 @@ Three new capabilities unlocked for the first time.
 </div>
 <div class="new-card">
   <div class="nc-badge">NEW</div>
-  <b>First longitudinal CE evidence</b><br>
-  Grok: −17.2 pp (17.7%→0.5%). Llama/Qwen: no net improvement. CE reducible when tracked.
+  <b>Longitudinal CE evidence</b><br>
+  Grok: −17.2 pp (17.7%→0.5%). Llama/Qwen: no net improvement. CE appears reducible when tracked, but not automatically.
 </div>
 </div>
 
@@ -750,7 +750,7 @@ Three new capabilities unlocked for the first time.
 <div class="practice-cards">
 <div class="pcard danger">
   <span class="pcard-icon">🚨</span>
-  <div><b><span class="kw">Consistency monitoring misses CEs</span></b> <span class="cite">[Manakul et al., 2023]</span><br>Sampling + agreement check sees perfect agreement on a CE - dangerous in healthcare, legal, education.</div>
+  <div><b><span class="kw">Consistency monitoring can miss CEs</span></b> <span class="cite">[Manakul et al., 2023]</span><br>Sampling + agreement checks can see perfect agreement on a CE, which is risky in healthcare, legal, and education settings.</div>
 </div>
 <div class="pcard green">
   <span class="pcard-icon">🔍</span>
@@ -818,7 +818,7 @@ Last-token hidden state tested on short factual answers only. Long-form needs to
 <div class="val-card">
 <div class="vc-icon">⚖️</div>
 <b><span class="kw">3-judge ensemble</span></b><br>
-GPT + Claude + Grok - majority vote (2/3). Distinct providers prevent shared grading bias. 96–98% pair coverage by DeBERTa NLI <span class="cite">[He et al., 2021]</span>; 2–4% borderline cases escalated to GPT-5.2.
+GPT + Claude + Grok - majority vote (2/3). Distinct providers reduce the risk of shared grading bias, though they do not eliminate it. 96–98% pair coverage by DeBERTa NLI <span class="cite">[He et al., 2021]</span>; 2–4% borderline cases escalated to GPT-5.2.
 </div>
 <div class="val-card">
 <div class="vc-icon">🎲</div>
