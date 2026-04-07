@@ -1014,7 +1014,7 @@ Extends Tan et al.’s fusion-based CE detection to API-only frontier models usi
 ## Impact on Theory
 
 - **<span class="kw">Accuracy</span> and CE are partially orthogonal** <span class="cite">[Tan et al., 2025]</span>: DeepSeek (60.3% acc.) vs Grok 4 (57.1% acc.) - 3.2 pp accuracy gap, but **6.8 pp CE rate gap**. Accuracy-only evaluation is incomplete.
-- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a 3B local model detects CEs in much larger closed-source targets - factual-error signal is in the *text*, not one model's architecture.
+- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a small local proxy model (3B–4B) can detect CEs in much larger closed-source targets, suggesting that the factual-error signal is carried by the question–answer text and is not tied to a single model’s hidden states.
 - **CE does not decrease automatically** with scale or generation - requires explicit targeting <span class="cite">[Tan et al., 2025]</span>.
 
 </div>
@@ -1024,15 +1024,15 @@ Extends Tan et al.’s fusion-based CE detection to API-only frontier models usi
 
 <div class="practice-cards">
 <div class="pcard danger">
-  <span class="pcard-icon">🚨</span>
+  <span class="pcard-icon"></span>
   <div><b><span class="kw">Consistency monitoring can miss CEs</span></b> <span class="cite">[Manakul et al., 2023]</span><br>Sampling + agreement checks can see perfect agreement on a CE, which is risky in healthcare, legal, and education settings.</div>
 </div>
 <div class="pcard green">
-  <span class="pcard-icon">🔍</span>
+  <span class="pcard-icon"></span>
 <div><b><span class="kw">Proxy probing enables CE monitoring</span></b><br>A small local proxy model can be run periodically on production queries to estimate CE risk, without access to the target model’s internals.</div>
 </div>
 <div class="pcard blue">
-  <span class="pcard-icon">🏆</span>
+  <span class="pcard-icon"></span>
   <div><b>Grok 4.20 Beta: 0.5% CE</b> <span class="cite">[xAI, 2026]</span><br>These results suggest very low CE may be achievable when CE is tracked as an explicit development metric.</div>
 </div>
 </div>
@@ -1052,25 +1052,25 @@ Extends Tan et al.’s fusion-based CE detection to API-only frontier models usi
 
 <div class="limits-grid">
 <div class="limit-card">
-<div class="lc-icon">📏</div>
+<div class="lc-icon"></div>
 <b><span class="kw">Small white-box test sets</span></b><br>
 GPT-5.2: 12 items; Grok 4: 16 items → high <span class="kw">AUROC</span> variance. Interpret cautiously.<br>
 <em>Addressable:</em> replicate at larger scale.
 </div>
 <div class="limit-card">
-<div class="lc-icon">📚</div>
+<div class="lc-icon"></div>
 <b><span class="kw">Single benchmark</span></b><br>
 All on <span class="kw">TruthfulQA</span> - targets misconceptions, CE rates likely inflated vs general QA.<br>
 <em>Addressable:</em> extend to TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span>.
 </div>
 <div class="limit-card">
-<div class="lc-icon">🖥️</div>
+<div class="lc-icon"></div>
 <b><span class="kw">No DeepSeek direct baseline</span></b><br>
 DeepSeek V3.2 too large for Nibi cluster - proxy-only; original-vs-proxy comparison unavailable.<br>
 <em>Addressable:</em> larger compute resources.
 </div>
 <div class="limit-card">
-<div class="lc-icon">✂️</div>
+<div class="lc-icon"></div>
 <b><span class="kw">Short answers only</span></b><br>
 Last-token hidden state tested on short factual answers only. Long-form needs token pooling <span class="cite">[Han et al., 2025]</span>.<br>
 <em>Addressable:</em> adopt pooling strategies.
@@ -1091,23 +1091,23 @@ Last-token hidden state tested on short factual answers only. Long-form needs to
 
 <div class="validation-grid">
 <div class="val-card">
-<div class="vc-icon">⚖️</div>
+<div class="vc-icon"></div>
 <b><span class="kw">3-judge ensemble</span></b><br>
 GPT + Claude + Grok - majority vote (2/3). Distinct providers reduce the risk of shared grading bias, though they do not eliminate it. 96–98% pair coverage by DeBERTa NLI <span class="cite">[He et al., 2021]</span>; 2–4% borderline cases escalated to GPT-5.2.
 </div>
 <div class="val-card">
-<div class="vc-icon">🎲</div>
+<div class="vc-icon"></div>
 <b><span class="kw">3 random seeds</span> (11, 22, 33)</b><br>
 AUROC reported as mean across seeds. <span class="kw">Question-level splits</span> (80/10/10) - same question never in both train and test. Z-score normalisation on train statistics only.
 </div>
 <div class="val-card">
-<div class="vc-icon">🔁</div>
+<div class="vc-icon"></div>
 <div><b><span class="kw">Two proxy model architectures</span></b><br>
 SmolLM3-3B and Qwen3.5-4B both achieve mean AUROC of about 0.92, suggesting the method is not tied to one specific proxy model.
 </div>
 </div>
 <div class="val-card">
-<div class="vc-icon">📊</div>
+<div class="vc-icon"></div>
 <b><span class="kw">Proxy vs direct comparison</span></b><br>
 Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy results were close to the direct baselines overall.
 </div>
@@ -1157,10 +1157,10 @@ With reference to objectives O1–O3 and the results obtained:
 ## Future Work
 
 <div class="future-list">
-<div class="fw-item"><span class="fw-icon">📖</span><div><b>Multi-benchmark:</b> TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span> - do CE patterns hold beyond TruthfulQA?</div></div>
-<div class="fw-item"><span class="fw-icon">🧠</span><div><b>Reasoning models:</b> Grok 4.20 Beta reaches 0.5% CE - controlled reasoning-on vs off comparison <span class="cite">[Wei et al., 2022]</span>.</div></div>
-<div class="fw-item"><span class="fw-icon">📈</span><div><b>Larger proxy models:</b> Test 7B–13B proxy models to map the trade-off between detection performance and compute cost.</div></div>
-<div class="fw-item"><span class="fw-icon">🗂️</span><div><b>Category analysis:</b> Confusion: People (50%), Misquotations (38.9%) - replicate on other benchmarks.</div></div>
+<div class="fw-item"><span class="fw-icon"></span><div><b>Multi-benchmark:</b> TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span> - do CE patterns hold beyond TruthfulQA?</div></div>
+<div class="fw-item"><span class="fw-icon"></span><div><b>Reasoning models:</b> Grok 4.20 Beta reaches 0.5% CE - controlled reasoning-on vs off comparison <span class="cite">[Wei et al., 2022]</span>.</div></div>
+<div class="fw-item"><span class="fw-icon"></span><div><b>Larger proxy models:</b> Test 7B–13B proxy models to map the trade-off between detection performance and compute cost.</div></div>
+<div class="fw-item"><span class="fw-icon"></span><div><b>Category analysis:</b> Confusion: People (50%), Misquotations (38.9%) - replicate on other benchmarks.</div></div>
 </div>
 
 </div>
