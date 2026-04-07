@@ -523,6 +523,8 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 ---
 
+<div class="proxy-adapt-slide">
+
 # Research Methodology
 
 ## My proxy adaptation for API-only targets
@@ -547,7 +549,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 </div>
 
-<div class="callout warn" style="margin-top:0.45rem">
+<div class="callout warn" style="margin-top:0.35rem">
 <b>Main idea:</b> keep Tan-style <span class="kw">two-score fusion</span>; only the <em>source</em> of the response-side hidden-state signal changes.
 </div>
 
@@ -585,9 +587,11 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 </div>
 </div>
 
+</div>
+
 <div class="citefoot">
 <span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
-<span class="cite">[UWaterloo, 2025]</span> University of Waterloo / Digital Research Alliance of Canada. Nibi HPC Cluster, 2025.
+<span class="cite">[UWaterloo, 2025]</span> Nibi HPC, UWaterloo / Alliance Canada, 2025.
 </div>
 
 ---

@@ -754,6 +754,104 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
 /* ============================================================
    O2 METHODOLOGY — Tan vs proxy flow (slides 9A / 9B)
    ============================================================ */
+
+/* Dense proxy-adaptation slide: keep content above pinned citefoot */
+.proxy-adapt-slide h1 {
+  font-size: 1.28rem;
+  margin: 0 0 0.12rem;
+  line-height: 1.06;
+}
+.proxy-adapt-slide h2 {
+  font-size: 0.92rem;
+  margin: 0 0 0.32rem;
+  line-height: 1.15;
+}
+.proxy-adapt-slide .method-grid {
+  gap: 0.65rem;
+  grid-template-columns: 1.02fr 0.98fr;
+}
+.proxy-adapt-slide .flow-card-o2 {
+  padding: 0.5rem 0.58rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.proxy-adapt-slide .flow-tag-o2 {
+  font-size: 0.58rem;
+  margin-bottom: 0.26rem;
+  padding: 0.1rem 0.34rem;
+}
+.proxy-adapt-slide .flow-title-o2 {
+  font-size: 0.74rem;
+  margin-bottom: 0.28rem;
+}
+.proxy-adapt-slide .flow-diagram-o2 {
+  font-size: 0.6rem;
+  line-height: 1.22;
+  max-width: 16.5rem;
+}
+.proxy-adapt-slide .fd-qa {
+  padding: 0.26rem 0.48rem;
+}
+.proxy-adapt-slide .fd-split-o2 {
+  margin: 0.08rem 0 0.12rem;
+  gap: 0.65rem;
+}
+.proxy-adapt-slide .fd-split-arrows-down,
+.proxy-adapt-slide .fd-score-row-o2,
+.proxy-adapt-slide .fd-converge-arrows {
+  grid-template-columns: minmax(0, 8rem) minmax(0, 8rem);
+  gap: 0.65rem;
+}
+.proxy-adapt-slide .fd-branch-o2 {
+  gap: 0.1rem;
+  max-width: 8rem;
+}
+.proxy-adapt-slide .fd-box-o2 {
+  padding: 0.28rem 0.36rem;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+.proxy-adapt-slide .fd-arrow-v {
+  font-size: 0.65rem;
+}
+.proxy-adapt-slide .fd-split-arrows-down,
+.proxy-adapt-slide .fd-converge-arrows {
+  font-size: 0.66rem;
+  margin: 0.06rem 0 0;
+}
+.proxy-adapt-slide .fd-score-pill {
+  font-size: 0.56rem;
+  padding: 0.06rem 0.28rem;
+}
+.proxy-adapt-slide .fd-fusion-wide {
+  padding: 0.28rem 0.38rem;
+  margin-bottom: 0.08rem;
+}
+.proxy-adapt-slide .method-note-o2 {
+  font-size: 0.66rem;
+  margin-top: 0.24rem;
+  line-height: 1.28;
+}
+.proxy-adapt-slide .callout.warn {
+  font-size: 0.7rem !important;
+  line-height: 1.3 !important;
+  padding: 0.28rem 0.38rem !important;
+}
+.proxy-adapt-slide ul {
+  margin: 0.1rem 0 !important;
+}
+.proxy-adapt-slide li {
+  font-size: 0.74rem !important;
+  line-height: 1.32 !important;
+  margin-bottom: 0.08rem !important;
+}
+.proxy-adapt-slide .compact-tables table {
+  font-size: 0.63rem;
+}
+.proxy-adapt-slide .compact-tables th,
+.proxy-adapt-slide .compact-tables td {
+  padding: 0.08rem 0.28rem;
+}
+
 .method-grid {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
