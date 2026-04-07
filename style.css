@@ -777,6 +777,9 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   text-align: center;
   font-size: 0.68rem;
   line-height: 1.3;
+  max-width: 19rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fd-qa {
@@ -788,11 +791,30 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   font-weight: 700;
 }
 
+/* Two arrows under Q+A → both branches (grid matches .fd-split-o2: 9rem + 1rem gap) */
+.fd-split-arrows-down {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 9rem);
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin: 0.12rem 0 0;
+  box-sizing: border-box;
+  color: #64748b;
+  font-weight: 800;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.fd-split-arrows-down span {
+  text-align: center;
+}
+
 .fd-split-o2 {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin: 0.35rem 0 0.25rem;
+  margin: 0.15rem 0 0.2rem;
   flex-wrap: wrap;
 }
 
@@ -841,10 +863,57 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   background: #fff;
 }
 
-.fd-merge-arrows {
+/* s_M and s_V aligned under M / V columns */
+.fd-score-row-o2 {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 9rem);
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin: 0.1rem 0 0.05rem;
+  box-sizing: border-box;
+}
+
+.fd-score-row-o2 .fd-score-pill {
+  justify-self: center;
+  width: 100%;
+  max-width: 9rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.fd-converge-arrows {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 9rem);
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  margin: 0.05rem 0 0.15rem;
+  box-sizing: border-box;
   color: #64748b;
   font-weight: 800;
-  margin: 0.1rem 0;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.fd-converge-arrows span {
+  text-align: center;
+}
+
+.fd-fusion-wide {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.15rem;
+  padding: 0.42rem 0.55rem;
+}
+
+.fd-out-score {
+  display: inline-block;
+  font-weight: 800;
+  margin-top: 0.05rem;
 }
 
 .method-note-o2 {
@@ -897,9 +966,16 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   font-weight: 800;
 }
 
+/* Unavailable / wrong — use sparingly (reads as “bad”) */
 .cm-no {
   color: #b91c1c;
   font-weight: 800;
+}
+
+/* Not applicable (e.g. no target hidden-state access) — neutral, not a failure */
+.cm-na {
+  color: #64748b;
+  font-weight: 700;
 }
 
 /* ============================================================

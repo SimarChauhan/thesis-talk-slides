@@ -315,10 +315,10 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 <div class="method-grid">
 <div>
 
-**What Tan et al. did** <span class="cite">[Tan et al., 2025]</span>
+**Original setup** <span class="cite">[Tan et al., 2025]</span>
 
-- Same <span class="kw">question + answer</span> text is encoded twice: <span class="kw">response-side model</span> $M$ and external <span class="kw">verifier</span> $V$.
-- Each side produces a probe score; scores are <span class="kw">fused</span> into one CE risk signal.
+- The same <span class="kw">question + answer</span> text is encoded twice: <span class="kw">response-side model</span> $M$ and an external <span class="kw">verifier</span> $V$.
+- Each side yields a probe score; the two scores are <span class="kw">fused</span> into one CE risk signal.
 
 <div class="callout warn" style="margin-top:0.45rem">
 <b>Key assumption:</b> both models expose usable <span class="kw">hidden states</span> for probing (open-weight / local loads).
@@ -344,24 +344,25 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
   <div class="flow-title-o2">Direct cross-model fusion</div>
   <div class="flow-diagram-o2">
     <div class="fd-qa">Q + A</div>
+    <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
-        <span class="fd-arrow-v">↓</span>
         <div class="fd-box-o2 resp">Response model <em>M</em><br><small>target hidden states</small></div>
         <span class="fd-arrow-v">↓</span>
-        <span class="fd-score-pill">$s_M$</span>
       </div>
       <div class="fd-branch-o2">
-        <span class="fd-arrow-v">↓</span>
         <div class="fd-box-o2 ver">Verifier <em>V</em><br><small>separate encoder</small></div>
         <span class="fd-arrow-v">↓</span>
-        <span class="fd-score-pill">$s_V$</span>
       </div>
     </div>
-    <div class="fd-merge-arrows">→</div>
-    <div class="fd-box-o2 fuse" style="display:inline-block;margin-bottom:0.2rem;">$(1-\lambda)s_M + \lambda s_V$</div>
+    <div class="fd-score-row-o2">
+      <span class="fd-score-pill">$s_M$</span>
+      <span class="fd-score-pill">$s_V$</span>
+    </div>
+    <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
+    <div class="fd-box-o2 fuse fd-fusion-wide">$(1-\lambda)s_M + \lambda s_V$</div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2" style="display:inline-block;font-weight:700;">Fused CE score</div>
+    <div class="fd-box-o2 fd-out-score">Fused CE score</div>
   </div>
 </div>
 </div>
@@ -383,17 +384,25 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 - Claude, GPT-5.2, and Grok are <span class="kw">API-only</span> → target hidden states unavailable.
 - DeepSeek was too large to load on the Nibi cluster for direct probing.
-- **Same fusion framework** <span class="cite">[Tan et al., 2025]</span>, but the response-side signal comes from a small local <span class="kw">proxy encoder</span> on the same Q + A text (not from the API target’s weights).
+- **The same fusion framework** <span class="cite">[Tan et al., 2025]</span>, but the response-side signal comes from a small local <span class="kw">proxy encoder</span> on the same Q + A text (not from the API target's weights).
 
 **Two proxy configurations:**
+
+<div class="compact-tables">
 
 | Role | Config 1 | Config 2 |
 |---|---|---|
 | Response proxy | SmolLM3-3B | Qwen3.5-4B |
 | Verifier | Phi-4-mini | Phi-4-mini |
 
+</div>
+
 <div class="callout warn" style="margin-top:0.45rem">
 <b>Main idea:</b> keep Tan-style <span class="kw">two-score fusion</span>; only the <em>source</em> of the response-side hidden states changes.
+</div>
+
+<div class="method-note-o2">
+<b>Fusion (unchanged):</b> $s = (1-\lambda)s_M + \lambda s_V$ with $\lambda \in [0,1]$ tuned on validation AUROC; $s_M$ is from the proxy, not the API target.
 </div>
 
 <div class="compare-mini-o2">
@@ -404,7 +413,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
     <div>Tan et al., 2025</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
   </div>
   <div class="compare-row-o2">
-    <div><b>This thesis</b></div><div class="cm-no">—</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
+    <div><b>This thesis</b></div><div class="cm-na">—</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
   </div>
 </div>
 
@@ -415,24 +424,25 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
   <div class="flow-title-o2">Proxy-only fusion for API targets</div>
   <div class="flow-diagram-o2">
     <div class="fd-qa">Q + A</div>
+    <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
-        <span class="fd-arrow-v">↓</span>
         <div class="fd-box-o2 resp">Response <em>proxy</em><br><small>SmolLM3-3B or Qwen3.5-4B</small></div>
         <span class="fd-arrow-v">↓</span>
-        <span class="fd-score-pill">$s_M$</span>
       </div>
       <div class="fd-branch-o2">
-        <span class="fd-arrow-v">↓</span>
         <div class="fd-box-o2 ver">Verifier<br><small>Phi-4-mini</small></div>
         <span class="fd-arrow-v">↓</span>
-        <span class="fd-score-pill">$s_V$</span>
       </div>
     </div>
-    <div class="fd-merge-arrows">→</div>
-    <div class="fd-box-o2 fuse" style="display:inline-block;margin-bottom:0.2rem;">$(1-\lambda)s_M + \lambda s_V$</div>
+    <div class="fd-score-row-o2">
+      <span class="fd-score-pill">$s_M$</span>
+      <span class="fd-score-pill">$s_V$</span>
+    </div>
+    <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
+    <div class="fd-box-o2 fuse fd-fusion-wide">$(1-\lambda)s_M + \lambda s_V$</div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2" style="display:inline-block;font-weight:700;">Fused CE score</div>
+    <div class="fd-box-o2 fd-out-score">Fused CE score</div>
   </div>
 </div>
 </div>
@@ -1005,80 +1015,7 @@ With reference to objectives O1–O3 and the results obtained:
 
 ---
 
-# EXTRA MATERIAL
-
-Backup slides for Q&A:
-
-1. White-box test partition sizes
-2. O2 probe: FFN architecture & training protocol
-3. Prompt template and sampling parameters
-4. Full references list
-
----
-
-# EXTRA MATERIAL - O2 Probe (FFN & Training)
-
-**Architecture** <span class="cite">[Tan et al., 2025]</span> — last-token hidden state → 4-layer FFN probe:
-
-<div class="probe-arch">
-  <div class="pa-box input">h<br><small>dim d</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden">256<br><small>ReLU</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden">128<br><small>ReLU</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden sm">64</div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box output">P(err)<br><small>σ</small></div>
-</div>
-
-**Protocol:** question-level **80% / 10% / 10%** train / val / test · **3** probe seeds (11, 22, 33) · up to **300** epochs + early stop · **Adam** lr $10^{-3}$ · best layer by validation **AUROC** · $\lambda$ grid on validation · runs on Nibi **H100** GPUs <span class="cite">[UWaterloo, 2025]</span>.
-
-Same details appear on the O2 results tables in the main deck.
-
-<div class="citefoot">
-<span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
-<span class="cite">[UWaterloo, 2025]</span> University of Waterloo / Digital Research Alliance of Canada. Nibi HPC Cluster, 2025.
-</div>
-
----
-
-# EXTRA MATERIAL - White-Box Test Partition Sizes
-
-| Target | Correct | CE | Total | Note |
-|---|---|---|---|---|
-| Claude Opus 4.6 | 15 | 6 | 21 | |
-| DeepSeek V3.2 | 8 | 16 | 24 | |
-| GPT-5.2 | 6 | 6 | 12 | ⚠ very small |
-| Grok 4 | 3 | 13 | 16 | ⚠ very small |
-| Llama 4 Maverick | 9 | 13 | 22 | |
-| Qwen3 Next 80B | 16 | 14 | 30 | |
-
-80/10/10 question-level split. Very small test sets → high AUROC variance → interpret cautiously.
-
----
-
-# EXTRA MATERIAL - Prompt Template & Sampling
-
-```text
-Answer the following question concisely and directly in one or two
-sentences. Do not explain your reasoning.
-Question: {question}
-```
-
-| Parameter | Value |
-|---|---|
-| Greedy temperature | ≈ 0.01 |
-| Stochastic sample temperature | 0.7 |
-| Stochastic samples per question | 10 |
-| CE equivalence threshold | t = 1.0 |
-| DeBERTa NLI equiv. threshold | ≥ 0.70 both directions |
-| DeBERTa NLI "different" threshold | ≤ 0.30 either direction |
-| Borderline cases escalated to GPT-5.2 | 2–4% of pairs |
-
----
-
-# EXTRA MATERIAL - Full References
+# References
 
 - Azaria, A. & Mitchell, T. (2023). The Internal State of an LLM Knows When It's Lying. *Findings of EMNLP*, pp. 967–976. ACL.
 - Farquhar, S., Kossen, J., Kuhn, L., & Gal, Y. (2024). Detecting Hallucinations in LLMs Using Semantic Entropy. *Nature, 630*, pp. 625–630.

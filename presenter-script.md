@@ -125,11 +125,11 @@ Third, CE reduction is not automatic and requires explicit targeting."
 "Future work includes multi-benchmark replication, deeper category-level analysis, and intervention strategies to reduce CE directly.  
 Thank you for your time. I am happy to take questions."
 
-## Backup Slides
-"The remaining slides contain backup material: partition sizes, O2 FFN and training protocol, prompt and sampling details, and full references. I can open any of them during Q and A."
+## References slide
+"If needed during Q and A, the next slide lists full bibliography entries in one place."
 
 ## Timing Guide
 - Slides 1-4: 3 minutes
 - Slides 5-11: ~6 minutes (methodology includes Tan original + proxy + O3)
 - Slides 12-18: 7 minutes (results)
-- Slides 19-24: 4.5 minutes (wrap-up)
+- Slides 19-24: 4.5 minutes (wrap-up; then references and thank-you)
