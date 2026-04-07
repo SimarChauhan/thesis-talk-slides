@@ -958,7 +958,7 @@ Extends Tan et al.’s fusion-based CE detection to API-only frontier models usi
 <div class="new-card">
   <div class="nc-badge">THESIS</div>
   <b> Proxy vs direct baseline</b><br>
-  Proxy results are close to the direct baselines overall; for Qwen3 Next the gap is under 0.03 AUROC. Mean fused AUROC stays around 0.92 on six targets.
+  Proxy results are close to the direct baselines overall. Mean fused AUROC stays around 0.92 on six targets.
 </div>
 <div class="new-card">
   <div class="nc-badge">NEW</div>
@@ -1136,7 +1136,7 @@ With reference to objectives O1–O3 and the results obtained:
 </div>
 <div>
 
-## Lessons Learnt *(two key lessons)*
+## Lessons Learnt
 
 <div class="lesson-cards">
 <div class="lesson-card">
