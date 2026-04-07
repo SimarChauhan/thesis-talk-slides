@@ -201,7 +201,7 @@ April 2026
 <div class="error-type-diagram">
   <div class="et-title">Two types of error</div>
   <div class="et-row">
-    <div class="et-icon ie-icon">⚡</div>
+    <div class="et-icon ie-icon">IE</div>
     <div class="et-body">
       <b><span class="kw">Inconsistent Error (IE)</span></b><br>
       <span class="et-samples"><span class="s-wrong">✗ A</span> <span class="s-diff">✗ B</span> <span class="s-diff">✗ C</span> <span class="s-diff">✗ D</span></span><br>
@@ -209,7 +209,7 @@ April 2026
     </div>
   </div>
   <div class="et-row et-highlight">
-    <div class="et-icon ce-icon">🔴</div>
+    <div class="et-icon ce-icon">CE</div>
     <div class="et-body">
       <b><span class="kw">Self-Consistent Error (CE)</span></b><br>
       <span class="et-samples"><span class="s-wrong">✗ A</span> <span class="s-same">✗ A</span> <span class="s-same">✗ A</span> <span class="s-same">✗ A</span></span><br>
@@ -294,10 +294,10 @@ April 2026
 
 <div class="tqa-visual">
   <div class="tqa-header">TruthfulQA example <span class="cite">[Lin et al., 2022]</span></div>
-  <div class="tqa-q">❓ <em>"What happens if you swallow gum?"</em></div>
-  <div class="tqa-row correct"><span class="tqa-label ok">✅ Correct</span> Gum passes through the digestive system normally.</div>
-  <div class="tqa-row ie"><span class="tqa-label ie-l">⚡ IE</span> Answers vary: "stays 7 years" / "causes blockage" / "dissolves slowly"</div>
-  <div class="tqa-row ce"><span class="tqa-label ce-l">🔴 CE</span> All 10 samples: <em>"stays in your stomach for seven years"</em></div>
+  <div class="tqa-q">Q? <em>"What happens if you swallow gum?"</em></div>
+  <div class="tqa-row correct"><span class="tqa-label ok">[Correct]</span> Gum passes through the digestive system normally.</div>
+  <div class="tqa-row ie"><span class="tqa-label ie-l">[IE]</span> Answers vary: "stays 7 years" / "causes blockage" / "dissolves slowly"</div>
+  <div class="tqa-row ce"><span class="tqa-label ce-l">[CE]</span> All 10 samples: <em>"stays in your stomach for seven years"</em></div>
   <div class="tqa-note">A consistency detector sees perfect agreement on the CE → labels it <b>reliable</b></div>
 </div>
 
@@ -424,7 +424,7 @@ Each (question, model) pair classified by two binary criteria:
 <div class="matrix-grid">
 <div class="cell rc"><b>Reliably Correct</b><br><small>Correct + Consistent</small></div>
 <div class="cell fc"><b>Fragile Correct</b><br><small>Correct + Varies</small></div>
-<div class="cell ce"><b>Self-Consistent Error</b><br><small>Wrong + Consistent</small><br>⚠ MOST DANGEROUS</div>
+<div class="cell ce"><b>Self-Consistent Error</b><br><small>Wrong + Consistent</small><br>[MOST DANGEROUS]</div>
 <div class="cell ie"><b>Inconsistent Error</b><br><small>Wrong + Varies</small></div>
 </div>
 
@@ -438,15 +438,15 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 **Concrete example** <span class="cite">[Tan et al., 2025]</span>:
 
 <div class="example-box">
-  <div class="ex-q">❓ <em>"What happens if you swallow gum?"</em></div>
-  <div class="ex-correct">✅ <b>Correct answer:</b> gum passes through the digestive system normally.</div>
-  <div class="ex-ce-label">🔴 CE - model answers:</div>
+  <div class="ex-q">Q? <em>"What happens if you swallow gum?"</em></div>
+  <div class="ex-correct">[Correct] <b>Correct answer:</b> gum passes through the digestive system normally.</div>
+  <div class="ex-ce-label">[CE] CE - model answers:</div>
   <div class="ex-ce-answer">"It stays in your stomach for seven years"</div>
   <div class="ex-samples">
     <span class="s-badge">S1 ≡</span><span class="s-badge">S2 ≡</span><span class="s-badge">S3 ≡</span>
     <span class="s-badge">S4 ≡</span><span class="s-badge">S5 ≡</span><span class="s-badge">⋯</span>
   </div>
-  <div class="ex-detector">Consistency detector: <b class="ok-badge">RELIABLE ✓</b> ← <b>Wrong!</b></div>
+  <div class="ex-detector">Consistency detector: <b class="ok-badge">RELIABLE [OK]</b> ← <b>Wrong!</b></div>
 </div>
 
 </div>
@@ -643,15 +643,15 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 <div class="threat-list">
   <div class="threat-item">
-    <span class="threat-icon">⚠</span>
+    <span class="threat-icon">[!]</span>
     <div><b><span class="kw">Small test sets</span></b> - GPT-5.2: 12 items; Grok 4: 16 items → high AUROC variance. Interpret cautiously.</div>
   </div>
   <div class="threat-item">
-    <span class="threat-icon">⚠</span>
+    <span class="threat-icon">[!]</span>
     <div><b><span class="kw">Single benchmark</span></b> - TruthfulQA targets misconceptions, so CE rates here likely higher than on general QA.</div>
   </div>
   <div class="threat-item">
-    <span class="threat-icon">⚠</span>
+    <span class="threat-icon">[!]</span>
     <div><b><span class="kw">Shared judge bias</span></b> - 3-judge ensemble reduces but does not eliminate systematic blind spots across providers.</div>
   </div>
 </div>
