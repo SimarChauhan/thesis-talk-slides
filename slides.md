@@ -699,12 +699,12 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 
 # Results - O1: Black-Box CE Prevalence
 
-## Aggregate and per-model breakdown (t = 1.0)
+## Aggregate and per-model breakdown
 
 <div class="two-col o1-thesis-two" style="gap:0.65rem;align-items:start">
 <div>
 
-**Aggregate (all six models)** — verbatim from thesis aggregate results table.
+**Aggregate across all six models** — counts and percentages from the thesis results table.
 
 |  | Count | % Total | % Wrong |
 |:---|---:|---:|---:|
@@ -715,12 +715,14 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 | CE | 656 | 13.5% | 42.1% |
 | IE | 904 | 18.7% | 57.9% |
 
-<small style="font-size:0.62rem;color:#64748b">Of 1,560 incorrect answers, 656 (42.1%) are CEs. Empty % Wrong cells match the thesis table.</small>
+<small style="font-size:0.62rem;color:#64748b">
+Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42.1%</b> of wrong answers are CEs. Blank cells in the <i>% Wrong</i> column are left blank to match the thesis table.
+</small>
 
 </div>
 <div>
 
-**Per-model** — verbatim from thesis per-model table. Acc. in %; Wrong/CE/IE = counts / 807 each.
+**Per-model breakdown** — accuracy shown as a percentage; Wrong, CE, and IE are counts out of 807 questions.
 
 | Model | Acc. | Wrong | CE | IE | CE% | CE/Wr |
 |:---|---:|---:|---:|---:|---:|---:|
@@ -731,7 +733,9 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 | Grok 4 | 57.1 | 320 | 88 | 232 | 10.9 | 27.5 |
 | Llama 4 Maverick | 52.4 | 331 | 125 | 206 | 15.5 | 37.8 |
 
-<small style="font-size:0.62rem;color:#64748b"><span class="kw">CE%</span> = CE/807 · <span class="kw">CE/Wr</span> = CE as % of wrong answers · sorted by accuracy (desc.)</small>
+<small style="font-size:0.62rem;color:#64748b">
+<span class="kw">CE%</span> = CE ÷ 807 questions · <span class="kw">CE/Wr</span> = CE as a percentage of wrong answers · models ordered by descending accuracy.
+</small>
 
 </div>
 </div>
@@ -741,7 +745,6 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 <div class="citefoot">
 <span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
 </div>
-
 ---
 
 # Results - O1: Cross-Model Overlap & Categories
