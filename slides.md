@@ -460,15 +460,17 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 # Research Methodology
 
-## Original Tan et al. cross-model probe
+## Original setup <span class="cite">[Tan et al., 2025]</span>
 
 <div class="method-grid">
 <div>
 
-**Original setup** <span class="cite">[Tan et al., 2025]</span>
+**Original setup**
 
-- The same <span class="kw">question + answer</span> pair is processed by two models: the <span class="kw">response model</span> <em>M</em> and an external <span class="kw">verifier model</span> <em>V</em>.
-- Each model produces a probe score, and the two scores are <span class="kw">fused</span> into a single CE risk score.
+- The same <span class="kw">question + greedy response</span> pair is processed by two models: the <span class="kw">response model</span> <em>M</em> and an external <span class="kw">verifier model</span> <em>V</em>.
+- The response model is the model that originally produced the greedy response.
+- A probe is trained on each model’s hidden representation, producing a <span class="kw">response-side score</span> and a <span class="kw">verifier-side score</span>.
+- The two scores are then <span class="kw">fused</span> into a single score used for error detection.
 
 <div class="callout warn" style="margin-top:0.45rem">
 <b>Key assumption:</b> both models expose usable <span class="kw">hidden states</span> for probing, so the method requires local or open-weight access.
@@ -484,11 +486,11 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
   <div class="flow-tag-o2">ORIGINAL</div>
   <div class="flow-title-o2">Tan et al.'s direct cross-model fusion</div>
   <div class="flow-diagram-o2">
-    <div class="fd-qa">Question + Answer</div>
+    <div class="fd-qa">Question + Greedy Response</div>
     <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
-        <div class="fd-box-o2 resp">Response model <em>M</em><br><small>target hidden states</small></div>
+        <div class="fd-box-o2 resp">Response model <em>M</em><br><small>hidden states from the model that produced the response</small></div>
         <span class="fd-arrow-v">↓</span>
       </div>
       <div class="fd-branch-o2">
@@ -503,7 +505,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
     <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
     <div class="fd-box-o2 fuse fd-fusion-wide">Fusion: s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2 fd-out-score">Final CE score</div>
+    <div class="fd-box-o2 fd-out-score">Final fused error score</div>
   </div>
 </div>
 </div>
@@ -526,7 +528,8 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 **What I changed**
 
 - Claude, GPT-5.2, and Grok are <span class="kw">API-only</span>, so their hidden states are not directly accessible.
-- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy model</span> applied to the same question + answer pair.
+- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy model</span> applied to the same <span class="kw">question + greedy response</span> pair.
+- The verifier-side signal is still produced by a separate verifier model.
 
 **Two proxy configurations:**
 
@@ -551,9 +554,9 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 <div class="flow-card-o2">
   <div class="flow-tag-o2">MY ADAPTATION</div>
-  <div class="flow-title-o2">Proxy-only fusion for API-only targets</div>
+  <div class="flow-title-o2">Proxy-based fusion for API-only targets</div>
   <div class="flow-diagram-o2">
-    <div class="fd-qa">Question + Answer</div>
+    <div class="fd-qa">Question + Greedy Response</div>
     <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
@@ -572,7 +575,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
     <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
     <div class="fd-box-o2 fuse fd-fusion-wide">Fusion: s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2 fd-out-score">Final CE score</div>
+    <div class="fd-box-o2 fd-out-score">Final fused error score</div>
   </div>
 </div>
 </div>
@@ -583,7 +586,6 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 <span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
 <span class="cite">[UWaterloo, 2025]</span> Nibi HPC, UWaterloo / Alliance Canada, 2025.
 </div>
-
 ---
 
 # Research Methodology
