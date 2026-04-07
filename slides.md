@@ -637,26 +637,6 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 12 × 807 = **9,684 rows** evaluated.
 
 </div>
-<div>
-
-**Threats to Validity:**
-
-<div class="threat-list">
-  <div class="threat-item">
-    <span class="threat-icon">[!]</span>
-    <div><b><span class="kw">Small test sets</span></b> - GPT-5.2: 12 items; Grok 4: 16 items → high AUROC variance. Interpret cautiously.</div>
-  </div>
-  <div class="threat-item">
-    <span class="threat-icon">[!]</span>
-    <div><b><span class="kw">Single benchmark</span></b> - TruthfulQA targets misconceptions, so CE rates here likely higher than on general QA.</div>
-  </div>
-  <div class="threat-item">
-    <span class="threat-icon">[!]</span>
-    <div><b><span class="kw">Shared judge bias</span></b> - 3-judge ensemble reduces but does not eliminate systematic blind spots across providers.</div>
-  </div>
-</div>
-
-</div>
 </div>
 
 <div class="citefoot">
