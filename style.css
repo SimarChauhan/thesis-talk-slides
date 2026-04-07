@@ -852,6 +852,49 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   padding: 0.08rem 0.28rem;
 }
 
+/* O1 prevalence slide: full thesis aggregate + per-model tables (slide ~13) */
+.o1-thesis-tables-slide h1 {
+  font-size: 1.28rem;
+  margin: 0 0 0.12rem;
+  line-height: 1.06;
+}
+.o1-thesis-tables-slide h2 {
+  font-size: 0.92rem;
+  margin: 0 0 0.35rem;
+  line-height: 1.15;
+}
+.o1-thesis-tables-slide .o1-thesis-two {
+  grid-template-columns: 0.92fr 1.18fr;
+}
+.o1-thesis-tables-slide .o1-thesis-two > div strong {
+  font-size: 0.72rem;
+  line-height: 1.25;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.o1-thesis-tables-slide table {
+  font-size: 0.52rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.1rem 0 0.15rem;
+}
+.o1-thesis-tables-slide th,
+.o1-thesis-tables-slide td {
+  padding: 0.06rem 0.14rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  vertical-align: middle;
+  line-height: 1.2;
+}
+.o1-thesis-tables-slide th {
+  background: rgba(37, 99, 235, 0.07);
+  color: #1e3a8a;
+  font-weight: 700;
+  text-align: left;
+}
+.o1-thesis-tables-slide tr:last-child td {
+  border-bottom: none;
+}
+
 .method-grid {
   display: grid;
   grid-template-columns: 1.05fr 1fr;

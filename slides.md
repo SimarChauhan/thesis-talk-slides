@@ -695,60 +695,47 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 
 ---
 
+<div class="o1-thesis-tables-slide">
+
 # Results - O1: Black-Box CE Prevalence
 
 ## Aggregate and per-model breakdown (t = 1.0)
 
-<div class="two-col" style="gap:1rem">
+<div class="two-col o1-thesis-two" style="gap:0.65rem;align-items:start">
 <div>
 
-**4,842 rows - outcome split:**
+**Aggregate (all six models)** — verbatim from thesis aggregate results table.
 
-<div class="donut-area">
-  <div class="donut-ring">
-    <svg viewBox="0 0 120 120" width="110" height="110">
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#e2e8f0" stroke-width="20"/>
-      <!-- Correct 63.3% -->
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#16a34a" stroke-width="20"
-        stroke-dasharray="181.5 301.6" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
-      <!-- Incorrect 32.2% → CE 42.1% of that = 13.5% total -->
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#dc2626" stroke-width="20"
-        stroke-dasharray="38.6 444.5" stroke-dashoffset="-181.5" transform="rotate(-90 60 60)"/>
-      <!-- Incorrect IE portion: 18.7% -->
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#f97316" stroke-width="20"
-        stroke-dasharray="53.5 429.6" stroke-dashoffset="-220.1" transform="rotate(-90 60 60)"/>
-      <!-- Not attempted 4.5% -->
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#94a3b8" stroke-width="20"
-        stroke-dasharray="12.9 470.2" stroke-dashoffset="-273.6" transform="rotate(-90 60 60)"/>
-    </svg>
-    <div class="donut-center">4,842<br><small>rows</small></div>
-  </div>
-  <div class="donut-legend">
-    <div><span class="dl-dot" style="background:#16a34a"></span> Correct 63.3%</div>
-    <div><span class="dl-dot" style="background:#dc2626"></span> <b>CE 13.5%</b></div>
-    <div><span class="dl-dot" style="background:#f97316"></span> IE 18.7%</div>
-    <div><span class="dl-dot" style="background:#94a3b8"></span> N/A 4.5%</div>
-  </div>
-</div>
+|  | Count | % Total | % Wrong |
+|:---|---:|---:|---:|
+| Total rows | 4,842 |  |  |
+| Correct | 3,063 | 63.3% |  |
+| Incorrect | 1,560 | 32.2% |  |
+| Not attempted | 219 | 4.5% |  |
+| CE | 656 | 13.5% | 42.1% |
+| IE | 904 | 18.7% | 57.9% |
+
+<small style="font-size:0.62rem;color:#64748b">Of 1,560 incorrect answers, 656 (42.1%) are CEs. Empty % Wrong cells match the thesis table.</small>
 
 </div>
 <div>
 
-**Per-model CE bar chart:**
+**Per-model** — verbatim from thesis per-model table. Acc. in %; Wrong/CE/IE = counts / 807 each.
 
-<div class="bar-chart">
-  <div class="bc-row"><span class="bc-label">Claude 4.6</span><div class="bc-bar" style="width:11.3%;background:#dc2626"></div><span class="bc-val">11.3%</span></div>
-  <div class="bc-row"><span class="bc-label">GPT-5.2</span><div class="bc-bar" style="width:7.6%;background:#dc2626"></div><span class="bc-val">7.6%</span></div>
-  <div class="bc-row"><span class="bc-label">Qwen3 Next</span><div class="bc-bar" style="width:18.3%;background:#dc2626"></div><span class="bc-val">18.3% ↑</span></div>
-  <div class="bc-row"><span class="bc-label">DeepSeek</span><div class="bc-bar" style="width:17.7%;background:#dc2626"></div><span class="bc-val">17.7%</span></div>
-  <div class="bc-row"><span class="bc-label">Grok 4</span><div class="bc-bar" style="width:10.9%;background:#dc2626"></div><span class="bc-val">10.9%</span></div>
-  <div class="bc-row"><span class="bc-label">Llama 4</span><div class="bc-bar" style="width:15.5%;background:#dc2626"></div><span class="bc-val">15.5%</span></div>
-  <div class="bc-axis"><span>0%</span><span style="margin-left:auto">20%</span></div>
+| Model | Acc. | Wrong | CE | IE | CE% | CE/Wr |
+|:---|---:|---:|---:|---:|---:|---:|
+| Claude Opus 4.6 | 74.7 | 169 | 91 | 78 | 11.3 | 53.8 |
+| GPT-5.2 | 69.8 | 217 | 61 | 156 | 7.6 | 28.1 |
+| Qwen3 Next 80B | 65.2 | 247 | 148 | 99 | 18.3 | 59.9 |
+| DeepSeek V3.2 | 60.3 | 276 | 143 | 133 | 17.7 | 51.8 |
+| Grok 4 | 57.1 | 320 | 88 | 232 | 10.9 | 27.5 |
+| Llama 4 Maverick | 52.4 | 331 | 125 | 206 | 15.5 | 37.8 |
+
+<small style="font-size:0.62rem;color:#64748b"><span class="kw">CE%</span> = CE/807 · <span class="kw">CE/Wr</span> = CE as % of wrong answers · sorted by accuracy (desc.)</small>
+
+</div>
 </div>
 
-<span class="kw">CE%</span> = CE/807 · <span class="kw">CE/Wr</span> = CE as % of wrong answers. No model is CE-free.
-
-</div>
 </div>
 
 <div class="citefoot">
@@ -873,12 +860,8 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 | Qwen3 Next | Llama-3.1-8B | **.946** | .929 | .936 | .92 |
 | Qwen3 Next | Qwen2.5-0.5B | **.946** | .924 | .946 | .53 |
 
-<div class="gap-comparison">
-  <div class="gc-item"><span class="gc-label">Proxy (SmolLM3)</span><div class="gc-bar proxy-bar" style="width:91.8%"></div><span class="gc-val">0.918</span></div>
-  <div class="gc-item"><span class="gc-label">Proxy (Qwen3.5)</span><div class="gc-bar proxy-bar" style="width:91.9%"></div><span class="gc-val">0.919</span></div>
-  <div class="gc-item"><span class="gc-label">Direct (Llama 4)</span><div class="gc-bar direct-bar" style="width:87.2%"></div><span class="gc-val">0.872</span></div>
-  <div class="gc-item"><span class="gc-label">Direct (Qwen3 Next)</span><div class="gc-bar direct-bar" style="width:94.6%"></div><span class="gc-val">0.946</span></div>
-  <div class="gc-note">↑ Proxy results are close to the direct baselines overall; for Qwen3 Next the gap is under 0.03 AUROC.</div>
+<div class="obs-row" style="margin-top:0.35rem">
+<span class="kw">Takeaway:</span> proxy fused AUROC (Config 1 mean 0.918, Config 2 mean 0.919) matches direct target-side probing on these two open-weight targets; for Qwen3 Next the gap is under 0.03 AUROC.
 </div>
 
 <div class="citefoot">
