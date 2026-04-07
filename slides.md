@@ -766,7 +766,7 @@ CE overlap is <span class="kw">limited</span>. Across model pairs, only about <s
 </div>
 
 <div class="obs-row" style="margin-top:0.12rem; font-size:0.8em; line-height:1.12;">
-The <span class="kw">open-weight pairs</span> show the highest overlap overall. Their Jaccard scores are about <span class="kw">0.34 to 0.36</span>.
+The <span class="kw">open-weight pairs</span> show the highest overlap overall, with shared CE rates around <span class="kw">34% to 36%</span>.
 </div>
 
 <div class="citefoot" style="font-size:0.72em; margin-top:0.18rem;">
