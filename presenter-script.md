@@ -45,84 +45,91 @@ This enables consistent measurement across all targets."
 The key point is semantic stability: if all sampled responses match the same wrong idea, it is a CE.  
 So consistency by itself is not a sufficient reliability signal."
 
-## Slide 9 - Methodology (Proxy Probing)
-"For API-only targets, hidden states are inaccessible, so direct white-box probing is impossible.  
-To address this, I use small local proxy encoders on the same question-answer text, then train CE probes and fuse signals with a lambda weight.  
-This gives a practical monitoring path without loading target internals."
+## Slide 9 - Methodology (Tan et al. original O2)
+"Before my adaptation, here is the original Tan et al. cross-model probe.  
+The same question and answer are viewed from two sides: the response model and a verifier model.  
+Each side produces a score, and those scores are fused with a lambda weight into one CE risk score.  
+Their setup assumes you can access hidden states from both models."
 
-## Slide 10 - Methodology (Evolution and Validity)
+## Slide 10 - Methodology (Proxy adaptation)
+"My contribution is not replacing the fusion idea.  
+Several of my frontier targets are API-only, so I cannot use their hidden states. DeepSeek was also too large to load locally.  
+I therefore use small local proxy encoders on the same text for the response-side signal, keep the same verifier and fusion rule, and still get a fused CE score.  
+The comparison strip shows target hidden states are no longer required for that branch."
+
+## Slide 11 - Methodology (Evolution and Validity)
 "For O3, I track four generations in Grok, Llama, and Qwen families.  
 I also disclose threats to validity, including smaller test partitions for some targets and benchmark scope limits.  
 This keeps interpretation transparent."
 
-## Slide 11 - Results Overview
+## Slide 12 - Results Overview
 "At a high level, there are three findings.  
 One, CEs are common.  
 Two, proxy probing performs strongly.  
 Three, CE trends do not automatically follow accuracy improvements."
 
-## Slide 12 - O1 Prevalence
+## Slide 13 - O1 Prevalence
 "Main O1 result: 42.1 percent of incorrect answers are self-consistent at t equals 1.0.  
 CE rates vary by model, but no model is CE-free.  
 So this is not an edge case - it is a systematic reliability issue."
 
-## Slide 13 - O1 Cross-Model Overlap and Categories
+## Slide 14 - O1 Cross-Model Overlap and Categories
 "Pairwise shared CE overlap is about 22 to 36 percent Jaccard, mean under 28 percent, so roughly two thirds to three quarters of CE mass is not shared across models.  
 Open-weight pairs overlap more than closed-open pairs. Of 720 shared-CE instances, about three quarters repeat the same wrong answer.  
 Category analysis shows misconception-heavy categories are especially CE-prone."
 
-## Slide 14 - O2 White-Box Probe Performance (Config 1)
+## Slide 15 - O2 White-Box Probe Performance (Config 1)
 "Config 1 uses SmolLM3-3B with a Phi-4-mini verifier.  
 In this table, each row shows target AUROC, verifier AUROC, fused AUROC, lambda, and split composition per model for train, validation, and test.  
 The key outcome is strong fused performance, with mean around 0.918."
 
-## Slide 15 - O2 White-Box Probe Performance (Config 2)
+## Slide 16 - O2 White-Box Probe Performance (Config 2)
 "Config 2 replaces the response proxy with Qwen3.5-4B while keeping the same verifier.  
 Performance remains very similar, with mean fused AUROC around 0.919.  
 This suggests the approach is not tied to one specific small encoder family."
 
-## Slide 16 - O2 Baseline Comparison
+## Slide 17 - O2 Baseline Comparison
 "Here I compare proxy results against original direct hidden-state extraction where feasible.  
 The mean row pools all five baseline runs: mean fused CE AUROC is about 0.90, still close to the proxy means near 0.92.  
 That supports proxy probing when direct access is unavailable."
 
-## Slide 17 - O3 Version-Evolution Study
+## Slide 18 - O3 Version-Evolution Study
 "This is the full version-evolution table, including release dates and all metrics.  
 Only Grok shows monotonic CE reduction across versions. Llama and Qwen are non-monotonic.  
 So accuracy increases and CE reduction are not equivalent trends."
 
-## Slide 18 - What's New
+## Slide 19 - What's New
 "What is new is the combined evidence across all three objectives in one framework.  
 The thesis extends CE analysis to API-only targets, validates proxy probing, and adds longitudinal tracking."
 
-## Slide 19 - Impact on Theory and Practice
+## Slide 20 - Impact on Theory and Practice
 "Theory impact: CE and accuracy are partially orthogonal.  
 Practice impact: consistency-only monitoring can miss dangerous failures.  
 A deployable alternative is periodic proxy-based CE risk auditing."
 
-## Slide 20 - Limitations
+## Slide 21 - Limitations
 "The main limitations are benchmark scope and smaller test sets for a few targets, which increase AUROC variance.  
 These are important caveats, and they motivate broader replication."
 
-## Slide 21 - Validation
+## Slide 22 - Validation
 "I validate with a multi-judge correctness pipeline, strict split hygiene, and seed-based stability checks.  
 I also compare two proxy configurations and direct baselines where possible."
 
-## Slide 22 - Conclusions
+## Slide 23 - Conclusions
 "Three conclusions:  
 First, CEs are common across frontier models.  
 Second, proxy probing can detect CE risk effectively without hidden-state access.  
 Third, CE reduction is not automatic and requires explicit targeting."
 
-## Slide 23 - Future Work and Close
+## Slide 24 - Future Work and Close
 "Future work includes multi-benchmark replication, deeper category-level analysis, and intervention strategies to reduce CE directly.  
 Thank you for your time. I am happy to take questions."
 
 ## Backup Slides
-"The remaining slides contain backup material: partition sizes, prompt/sampling details, and full references. I can open any of them during Q and A."
+"The remaining slides contain backup material: partition sizes, O2 FFN and training protocol, prompt and sampling details, and full references. I can open any of them during Q and A."
 
 ## Timing Guide
 - Slides 1-4: 3 minutes
-- Slides 5-10: 5.5 minutes
-- Slides 11-17: 7 minutes
-- Slides 18-23: 4.5 minutes
+- Slides 5-11: ~6 minutes (methodology includes Tan original + proxy + O3)
+- Slides 12-18: 7 minutes (results)
+- Slides 19-24: 4.5 minutes (wrap-up)

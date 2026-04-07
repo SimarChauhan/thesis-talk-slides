@@ -737,6 +737,172 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
 }
 
 /* ============================================================
+   O2 METHODOLOGY — Tan vs proxy flow (slides 9A / 9B)
+   ============================================================ */
+.method-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.flow-card-o2 {
+  border: 1px solid #dbe2ea;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 0.75rem 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.flow-tag-o2 {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.42rem;
+  border-radius: 999px;
+  margin-bottom: 0.4rem;
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+.flow-title-o2 {
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 0.45rem;
+  line-height: 1.2;
+}
+
+.flow-diagram-o2 {
+  text-align: center;
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.fd-qa {
+  display: inline-block;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.35rem 0.65rem;
+  background: #f8fafc;
+  font-weight: 700;
+}
+
+.fd-split-o2 {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.35rem 0 0.25rem;
+  flex-wrap: wrap;
+}
+
+.fd-branch-o2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem;
+  max-width: 9rem;
+}
+
+.fd-arrow-v {
+  color: #64748b;
+  font-weight: 800;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.fd-box-o2 {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.38rem 0.45rem;
+  background: #f8fafc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fd-box-o2.resp {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.fd-box-o2.ver {
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.fd-box-o2.fuse {
+  background: rgba(239, 68, 68, 0.09);
+  font-weight: 800;
+}
+
+.fd-score-pill {
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.12rem 0.4rem;
+  font-size: 0.62rem;
+  background: #fff;
+}
+
+.fd-merge-arrows {
+  color: #64748b;
+  font-weight: 800;
+  margin: 0.1rem 0;
+}
+
+.method-note-o2 {
+  font-size: 0.72rem;
+  color: #475569;
+  margin-top: 0.45rem;
+  line-height: 1.35;
+}
+
+.compare-mini-o2 {
+  margin-top: 0.55rem;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.65rem;
+}
+
+.compare-row-o2 {
+  display: grid;
+  grid-template-columns: 1.25fr 0.65fr 0.65fr 0.65fr;
+}
+
+.compare-row-o2 > div {
+  padding: 0.28rem 0.38rem;
+  border-right: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.compare-row-o2 > div:first-child {
+  text-align: left;
+  font-weight: 700;
+}
+
+.compare-row-o2.header-o2 {
+  background: #f8fafc;
+  font-weight: 800;
+}
+
+.compare-row-o2.header-o2 > div {
+  border-top: 0;
+}
+
+.compare-row-o2 > div:last-child {
+  border-right: 0;
+}
+
+.cm-ok {
+  color: #15803d;
+  font-weight: 800;
+}
+
+.cm-no {
+  color: #b91c1c;
+  font-weight: 800;
+}
+
+/* ============================================================
    SLIDE NUMBER — bottom RIGHT "X of Y"
    ============================================================ */
 .global-slide-number {
@@ -760,5 +926,5 @@ p .cite, li .cite, div .cite, span .cite { color: var(--blue); font-weight: 600;
   .meta-grid, .rq-grid, .flow-grid, .two-col,
   .big-number-grid, .matrix-grid, .limits-grid,
   .validation-grid, .toc-grid, .findings-strip,
-  .result-pills { grid-template-columns: 1fr; flex-direction: column; }
+  .result-pills, .method-grid { grid-template-columns: 1fr; flex-direction: column; }
 }

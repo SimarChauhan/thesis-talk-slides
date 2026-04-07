@@ -310,43 +310,130 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 # Research Methodology
 
-## White-box cross-model probe (O2)
+## Original Tan et al. cross-model probe
 
-<div class="two-col" style="gap:0.9rem">
+<div class="method-grid">
 <div>
 
-**Why proxies?** Claude / GPT / Grok are API-only - hidden states inaccessible. DeepSeek too large for Nibi cluster. Key assumption: a small <span class="kw">proxy encoder</span> of the same Q+A text can detect CEs comparably to the target's own hidden states.
+**What Tan et al. did** <span class="cite">[Tan et al., 2025]</span>
 
-**Two configurations:**
+- Same <span class="kw">question + answer</span> text is encoded twice: <span class="kw">response-side model</span> $M$ and external <span class="kw">verifier</span> $V$.
+- Each side produces a probe score; scores are <span class="kw">fused</span> into one CE risk signal.
+
+<div class="callout warn" style="margin-top:0.45rem">
+<b>Key assumption:</b> both models expose usable <span class="kw">hidden states</span> for probing (open-weight / local loads).
+</div>
+
+<div class="method-note-o2">
+<b>Fusion:</b> $s = (1-\lambda)s_M + \lambda s_V$ with $\lambda \in [0,1]$ tuned on validation AUROC.
+</div>
+
+<div class="compare-mini-o2">
+  <div class="compare-row-o2 header-o2">
+    <div>Method</div><div>Target HS</div><div>Verifier</div><div>Fusion</div>
+  </div>
+  <div class="compare-row-o2">
+    <div>Tan et al., 2025</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
+  </div>
+</div>
+
+</div>
+
+<div class="flow-card-o2">
+  <div class="flow-tag-o2">ORIGINAL</div>
+  <div class="flow-title-o2">Direct cross-model fusion</div>
+  <div class="flow-diagram-o2">
+    <div class="fd-qa">Q + A</div>
+    <div class="fd-split-o2">
+      <div class="fd-branch-o2">
+        <span class="fd-arrow-v">↓</span>
+        <div class="fd-box-o2 resp">Response model <em>M</em><br><small>target hidden states</small></div>
+        <span class="fd-arrow-v">↓</span>
+        <span class="fd-score-pill">$s_M$</span>
+      </div>
+      <div class="fd-branch-o2">
+        <span class="fd-arrow-v">↓</span>
+        <div class="fd-box-o2 ver">Verifier <em>V</em><br><small>separate encoder</small></div>
+        <span class="fd-arrow-v">↓</span>
+        <span class="fd-score-pill">$s_V$</span>
+      </div>
+    </div>
+    <div class="fd-merge-arrows">→</div>
+    <div class="fd-box-o2 fuse" style="display:inline-block;margin-bottom:0.2rem;">$(1-\lambda)s_M + \lambda s_V$</div>
+    <div class="fd-arrow-v">↓</div>
+    <div class="fd-box-o2" style="display:inline-block;font-weight:700;">Fused CE score</div>
+  </div>
+</div>
+</div>
+
+<div class="citefoot">
+<span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025.
+</div>
+
+---
+
+# Research Methodology
+
+## My proxy adaptation for API-only targets
+
+<div class="method-grid">
+<div>
+
+**What I changed**
+
+- Claude, GPT-5.2, and Grok are <span class="kw">API-only</span> → target hidden states unavailable.
+- DeepSeek was too large to load on the Nibi cluster for direct probing.
+- **Same fusion framework** <span class="cite">[Tan et al., 2025]</span>, but the response-side signal comes from a small local <span class="kw">proxy encoder</span> on the same Q + A text (not from the API target’s weights).
+
+**Two proxy configurations:**
 
 | Role | Config 1 | Config 2 |
 |---|---|---|
 | Response proxy | SmolLM3-3B | Qwen3.5-4B |
 | Verifier | Phi-4-mini | Phi-4-mini |
 
-**Score fusion** <span class="cite">[Tan et al., 2025]</span>: &nbsp; $s = (1-\lambda)s_M + \lambda s_V$, &nbsp; λ ∈ [0,1]
-
-</div>
-<div>
-
-**<span class="kw">FFN probe</span> architecture:**
-
-<div class="probe-arch">
-  <div class="pa-box input">h<br><small>dim d</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden">256<br><small>ReLU</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden">128<br><small>ReLU</small></div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box hidden sm">64</div>
-  <div class="pa-arrow">→</div>
-  <div class="pa-box output">P(err)<br><small>σ</small></div>
+<div class="callout warn" style="margin-top:0.45rem">
+<b>Main idea:</b> keep Tan-style <span class="kw">two-score fusion</span>; only the <em>source</em> of the response-side hidden states changes.
 </div>
 
-Best layer per model selected by validation <span class="kw">AUROC</span>.
+<div class="compare-mini-o2">
+  <div class="compare-row-o2 header-o2">
+    <div>Method</div><div>Target HS</div><div>Verifier</div><div>Fusion</div>
+  </div>
+  <div class="compare-row-o2">
+    <div>Tan et al., 2025</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
+  </div>
+  <div class="compare-row-o2">
+    <div><b>This thesis</b></div><div class="cm-no">—</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
+  </div>
+</div>
 
-**Training:** 80/10/10 splits · 3 seeds · 300 epochs · early stop · Adam lr=10⁻³ · Nibi H100 GPUs <span class="cite">[UWaterloo, 2025]</span>
+</div>
 
+<div class="flow-card-o2">
+  <div class="flow-tag-o2">MY ADAPTATION</div>
+  <div class="flow-title-o2">Proxy-only fusion for API targets</div>
+  <div class="flow-diagram-o2">
+    <div class="fd-qa">Q + A</div>
+    <div class="fd-split-o2">
+      <div class="fd-branch-o2">
+        <span class="fd-arrow-v">↓</span>
+        <div class="fd-box-o2 resp">Response <em>proxy</em><br><small>SmolLM3-3B or Qwen3.5-4B</small></div>
+        <span class="fd-arrow-v">↓</span>
+        <span class="fd-score-pill">$s_M$</span>
+      </div>
+      <div class="fd-branch-o2">
+        <span class="fd-arrow-v">↓</span>
+        <div class="fd-box-o2 ver">Verifier<br><small>Phi-4-mini</small></div>
+        <span class="fd-arrow-v">↓</span>
+        <span class="fd-score-pill">$s_V$</span>
+      </div>
+    </div>
+    <div class="fd-merge-arrows">→</div>
+    <div class="fd-box-o2 fuse" style="display:inline-block;margin-bottom:0.2rem;">$(1-\lambda)s_M + \lambda s_V$</div>
+    <div class="fd-arrow-v">↓</div>
+    <div class="fd-box-o2" style="display:inline-block;font-weight:700;">Fused CE score</div>
+  </div>
 </div>
 </div>
 
@@ -442,7 +529,7 @@ Best layer per model selected by validation <span class="kw">AUROC</span>.
 
 <div class="result-pills">
   <div class="r-pill o1"><b>O1</b> CEs common across all 6 models · CE% 7.6–18.3% · no model CE-free</div>
-  <div class="r-pill o2"><b>O2</b> Proxy probing strong · gap vs direct ≤ 0.03 AUROC</div>
+  <div class="r-pill o2"><b>O2</b> Strong fused CE detection · proxy encoders for API-only targets</div>
   <div class="r-pill o3"><b>O3</b> Accuracy ↑ in all families · CE did not follow - partially orthogonal</div>
 </div>
 
@@ -706,12 +793,12 @@ Three capabilities combined here in one CE study.
 <div class="new-card">
   <div class="nc-badge">NEW</div>
   <b>CE in API-only targets</b><br>
-  Claude, GPT-5.2, and Grok 4 extend CE measurement to hidden-state-inaccessible frontier APIs.
+  Extends Tan et al.’s fusion-based CE detection to hidden-state-inaccessible frontier APIs using <span class="kw">proxy-only</span> encoders.
 </div>
 <div class="new-card">
-  <div class="nc-badge">GAP</div>
-  <b>Proxy gap ≤ 0.03 AUROC</b><br>
-  SmolLM3-3B: 0.918 vs direct 0.872–0.946. Near-identical, no target loading.
+  <div class="nc-badge">THESIS</div>
+  <b>Proxy vs direct baseline</b><br>
+  Thesis: fused AUROC within ≤0.03 of direct hidden-state runs on <b>Llama 4</b> &amp; <b>Qwen3 Next</b> (pairwise, not pooled). Mean fused ~0.92 on six targets.
 </div>
 <div class="new-card">
   <div class="nc-badge">NEW</div>
@@ -831,7 +918,7 @@ SmolLM3-3B vs Qwen3.5-4B (different families, different parameter counts) both a
 <div class="val-card">
 <div class="vc-icon">📊</div>
 <b><span class="kw">Proxy vs direct comparison</span></b><br>
-Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy-baseline gap ≤ 0.03 AUROC - validates the proxy assumption.
+Direct hidden-state extraction for Llama 4 and Qwen3 Next. Thesis reports ≤0.03 AUROC vs proxy on those <b>same targets</b> (per-target pairs; see baseline slide).
 </div>
 </div>
 
@@ -852,7 +939,7 @@ With reference to objectives O1–O3 and the results obtained:
 </div>
 <div class="conc-row">
   <div class="conc-badge o2b">O2</div>
-  <div><b>Proxy probes detect CEs effectively</b> [Tables 6–7]: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean 0.92) across all 6 targets including 3 API-only. Gap ≤ 0.03 vs direct - no hidden-state access needed.</div>
+  <div><b>Proxy probes detect CEs effectively</b> [Tables 6–7]: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean ~0.92) on six targets including API-only. Thesis: within ≤0.03 of direct on Llama 4 &amp; Qwen3 Next.</div>
 </div>
 <div class="conc-row">
   <div class="conc-badge o3b">O3</div>
@@ -895,7 +982,7 @@ With reference to objectives O1–O3 and the results obtained:
   <div class="lnum">1</div>
   <div>
     <b><span class="kw">Proxy probing</span> is viable.</b><br>
-    3B–4B encoders achieve fused AUROC 0.85–1.00 across all 6 targets; proxy-baseline gap ≤ 0.03. No target loading required - enables <span class="kw">white-box</span> CE detection for any model.
+    3B–4B encoders: fused AUROC 0.85–1.00 across six targets; thesis aligns with direct baseline on shared targets (≤0.03). No API target weights needed — <span class="kw">white-box</span>-style CE signal from proxies.
   </div>
 </div>
 <div class="lesson-card">
@@ -923,8 +1010,36 @@ With reference to objectives O1–O3 and the results obtained:
 Backup slides for Q&A:
 
 1. White-box test partition sizes
-2. Prompt template and sampling parameters
-3. Full references list
+2. O2 probe: FFN architecture & training protocol
+3. Prompt template and sampling parameters
+4. Full references list
+
+---
+
+# EXTRA MATERIAL - O2 Probe (FFN & Training)
+
+**Architecture** <span class="cite">[Tan et al., 2025]</span> — last-token hidden state → 4-layer FFN probe:
+
+<div class="probe-arch">
+  <div class="pa-box input">h<br><small>dim d</small></div>
+  <div class="pa-arrow">→</div>
+  <div class="pa-box hidden">256<br><small>ReLU</small></div>
+  <div class="pa-arrow">→</div>
+  <div class="pa-box hidden">128<br><small>ReLU</small></div>
+  <div class="pa-arrow">→</div>
+  <div class="pa-box hidden sm">64</div>
+  <div class="pa-arrow">→</div>
+  <div class="pa-box output">P(err)<br><small>σ</small></div>
+</div>
+
+**Protocol:** question-level **80% / 10% / 10%** train / val / test · **3** probe seeds (11, 22, 33) · up to **300** epochs + early stop · **Adam** lr $10^{-3}$ · best layer by validation **AUROC** · $\lambda$ grid on validation · runs on Nibi **H100** GPUs <span class="cite">[UWaterloo, 2025]</span>.
+
+Same details appear on the O2 results tables in the main deck.
+
+<div class="citefoot">
+<span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
+<span class="cite">[UWaterloo, 2025]</span> University of Waterloo / Digital Research Alliance of Canada. Nibi HPC Cluster, 2025.
+</div>
 
 ---
 
