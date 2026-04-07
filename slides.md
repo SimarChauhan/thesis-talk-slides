@@ -284,10 +284,10 @@ April 2026
 <div class="two-col" style="gap:1rem">
 <div>
 
-- **Hallucination** <span class="cite">[Ji et al., 2023]</span>: fluent, factually unsupported output. This thesis focuses on <span class="kw">factuality hallucinations</span> in closed-book QA.
-- **<span class="kw">TruthfulQA</span>** <span class="cite">[Lin et al., 2022]</span>: 817 questions across 38 categories targeting <span class="kw">imitative falsehoods</span> - popular but incorrect beliefs. Unlike TriviaQA <span class="cite">[Joshi et al., 2017]</span>, it targets confident misinformation. This thesis uses 807 questions.
-- **CE formalization** <span class="cite">[Tan et al., 2025]</span>: CE does *not* decrease with model scale; existing detectors degrade substantially on CEs.
-- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: structurally blind to CEs - uniform outputs register as reliable.
+- **Hallucination** <span class="cite">[Ji et al., 2023]</span>: fluent but factually unsupported output. This thesis focuses on <span class="kw">factuality hallucinations</span> in closed-book question answering.
+- **<span class="kw">TruthfulQA</span>** <span class="cite">[Lin et al., 2022]</span>: a benchmark of 817 questions across 38 categories designed to elicit <span class="kw">imitative falsehoods</span> — common but incorrect beliefs repeated in human text. Unlike TriviaQA <span class="cite">[Joshi et al., 2017]</span>, it targets confident misinformation. This thesis uses 807 questions.
+- **CE formalization** <span class="cite">[Tan et al., 2025]</span>: self-consistent errors do not reliably decrease with model scale, and existing detectors perform substantially worse on them.
+- **<span class="kw">SelfCheckGPT</span>** <span class="cite">[Manakul et al., 2023]</span>: sampling-based consistency methods can miss CEs, because repeated wrong answers may still appear reliable.
 
 </div>
 <div>
@@ -321,10 +321,10 @@ April 2026
 <div class="two-col" style="gap:1rem">
 <div>
 
-- **<span class="kw">Hidden-state probing</span>** <span class="cite">[Azaria & Mitchell, 2023]</span>: classifiers on activations distinguish true from false statements, outperforming output-probability baselines.
-- **Factuality probes** <span class="cite">[Han et al., 2025]</span>: lightweight probes on hidden states match expensive multi-sample detectors.
-- **Cross-model probe** <span class="cite">[Tan et al., 2025]</span>: a second "verifier" model picks up error signals the response model misses. Fused score: s = (1−λ)s_M + λs_V.
-- **<span class="kw">Semantic entropy</span>** <span class="cite">[Farquhar et al., 2024; Kossen et al., 2024]</span>: meaning-level uncertainty catches confabulations, approximable from hidden states.
+- **<span class="kw">Hidden-state probing</span>** <span class="cite">[Azaria & Mitchell, 2023]</span>: classifiers trained on internal activations can distinguish true from false statements, outperforming output-probability baselines.
+- **Factuality probes** <span class="cite">[Han et al., 2025]</span>: lightweight hidden-state probes achieve competitive performance with expensive multi-sample detectors at much lower inference cost.
+- **Cross-model probing** <span class="cite">[Tan et al., 2025]</span>: a second <span class="kw">verifier model</span> can capture error signals that the response model misses. The two scores are then fused as <span class="kw">s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></span>.
+- **<span class="kw">Semantic entropy</span>** <span class="cite">[Farquhar et al., 2024; Kossen et al., 2024]</span>: meaning-level uncertainty can reveal confabulations and can also be approximated from hidden states.
 
 </div>
 <div>
