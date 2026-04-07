@@ -741,7 +741,7 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 
 <div class="compact-tables o1-overlap-full">
 
-**Complete pairwise CE overlap table:**
+**Pairwise CE overlap table:**
 
 | Model A | Model B | A CE | B CE | Shared CE (Both) | Same wrong | SW% |
 |:--|:--|--:|--:|--:|--:|--:|
@@ -768,6 +768,11 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 Most CE overlap is limited, but when two models share a CE, they usually share the <span class="kw">same wrong answer</span>.
 </div>
 
+<div class="citefoot">
+<span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
+</div>
+
+
 
 ---
 
@@ -775,7 +780,7 @@ Most CE overlap is limited, but when two models share a CE, they usually share t
 
 <div class="compact-tables o1-category-full">
 
-**Complete category table from the thesis (top 10 and bottom 5 by CE rate):**
+**Category table (top 10 and bottom 5 by CE rate):**
 
 | Category | Rows | CE | IE | CE% | CE/Wr% |
 |:--|--:|--:|--:|--:|--:|
@@ -804,7 +809,6 @@ Confusion and misquotation categories are the most CE-prone, while Politics, Sta
 </div>
 
 <div class="citefoot">
-<span class="cite">[Singh, 2026]</span> Category-level CE vulnerability table reproduced from the thesis (Table 5). &nbsp;
 <span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
 </div>
 
@@ -880,7 +884,7 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 | Qwen3 Next | Qwen2.5-0.5B | **.946** | .924 | .946 | .53 |
 
 <div class="obs-row" style="margin-top:0.35rem">
-<span class="kw">Takeaway:</span> proxy fused AUROC (Config 1 mean 0.918, Config 2 mean 0.919) matches direct target-side probing on these two open-weight targets; for Qwen3 Next the gap is under 0.03 AUROC.
+<span class="kw">Takeaway:</span> proxy fused AUROC (Config 1 mean 0.918, Config 2 mean 0.919) matches direct target-side probing on these two open-weight targets.
 </div>
 
 <div class="citefoot">
@@ -894,7 +898,7 @@ Direct hidden-state extraction for Llama 4 and Qwen3 Next (target loaded locally
 
 <div class="compact-tables o3-evo-table">
 
-**Complete version-evolution table (from thesis; includes release dates):**
+**Version-evolution table:**
 
 | Family | Ver | Model | Release | Acc. | CE | IE | CE% | CE/Wr |
 |---|---|---|---|---:|---:|---:|---:|---:|
@@ -948,17 +952,17 @@ Three capabilities combined here in one CE study.
 <div class="new-cards">
 <div class="new-card">
   <div class="nc-badge">NEW</div>
-  <b>CE in API-only targets</b><br>
+  <b> CE in API-only targets</b><br>
 Extends Tan et al.’s fusion-based CE detection to API-only frontier models using <span class="kw">proxy-only</span> models.
 </div>
 <div class="new-card">
   <div class="nc-badge">THESIS</div>
-  <b>Proxy vs direct baseline</b><br>
+  <b> Proxy vs direct baseline</b><br>
   Proxy results are close to the direct baselines overall; for Qwen3 Next the gap is under 0.03 AUROC. Mean fused AUROC stays around 0.92 on six targets.
 </div>
 <div class="new-card">
   <div class="nc-badge">NEW</div>
-  <b>Longitudinal CE evidence</b><br>
+  <b> Longitudinal CE evidence</b><br>
   Grok: −17.2 pp (17.7%→0.5%). Llama/Qwen: no net improvement. CE appears reducible when tracked, but not automatically.
 </div>
 </div>
@@ -1075,7 +1079,7 @@ SmolLM3-3B and Qwen3.5-4B both achieve mean AUROC of about 0.92, suggesting the 
 <div class="val-card">
 <div class="vc-icon">📊</div>
 <b><span class="kw">Proxy vs direct comparison</span></b><br>
-Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy results were close to the direct baselines overall; for Qwen3 Next the gap was under 0.03 AUROC.
+Direct hidden-state extraction run for Llama 4 and Qwen3 Next as baseline. Proxy results were close to the direct baselines overall.
 </div>
 </div>
 
@@ -1092,15 +1096,15 @@ With reference to objectives O1–O3 and the results obtained:
 <div class="conclusion-rows">
 <div class="conc-row">
   <div class="conc-badge o1b">O1</div>
-  <div><b>CEs are common</b> [Tables 2–3]: 42.1% of incorrect answers self-consistent at t=1.0. <span class="kw">CE%</span> 7.6–18.3% - no model is CE-free. Higher accuracy ≠ fewer CEs.</div>
+  <div><b>CEs are common</b>: 42.1% of incorrect answers self-consistent at t=1.0. <span class="kw">CE%</span> 7.6–18.3% - no model is CE-free. Higher accuracy ≠ fewer CEs.</div>
 </div>
 <div class="conc-row">
   <div class="conc-badge o2b">O2</div>
-  <div><b>Proxy probes detect CEs effectively</b> [Tables 6–7]: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean 0.92) across all 6 targets including 3 API-only. Proxy results are close to the direct baselines overall, without requiring target hidden-state access.</div>
+  <div><b>Proxy probes detect CEs effectively</b>: Fused <span class="kw">AUROC</span> 0.85–1.00 (mean 0.92) across all 6 targets including 3 API-only. Proxy results are close to the direct baselines overall, without requiring target hidden-state access.</div>
 </div>
 <div class="conc-row">
   <div class="conc-badge o3b">O3</div>
-  <div><b>CE evolution is not automatic</b> [Table 9]: Only Grok reduced CE monotonically (17.7%→0.5%). Llama/Qwen: non-monotonic. Accuracy ↑ in all families; CE did not follow.</div>
+  <div><b>CE evolution is not automatic</b>: Only Grok reduced CE monotonically (17.7%→0.5%). Llama/Qwen: non-monotonic. Accuracy ↑ in all families; CE did not follow.</div>
 </div>
 </div>
 
@@ -1162,38 +1166,7 @@ With reference to objectives O1–O3 and the results obtained:
 
 ---
 
-# EXTRA MATERIAL
-
-Backup slides for Q&A:
-
-1. White-box test partition sizes
-2. Prompt template and sampling parameters
-3. Full references list
-
----
-
-# EXTRA MATERIAL - White-Box Test Partition Sizes
-
-| Target | Correct | CE | Total | Note |
-|---|---|---|---|---|
-| Claude Opus 4.6 | 15 | 6 | 21 | |
-| DeepSeek V3.2 | 8 | 16 | 24 | |
-| GPT-5.2 | 6 | 6 | 12 | ⚠ very small |
-| Grok 4 | 3 | 13 | 16 | ⚠ very small |
-| Llama 4 Maverick | 9 | 13 | 22 | |
-| Qwen3 Next 80B | 16 | 14 | 30 | |
-
-80/10/10 question-level split. Very small test sets → high AUROC variance → interpret cautiously.
-
----
-
-# EXTRA MATERIAL - Prompt Template & Sampling
-
-```text
-Answer the following question concisely and directly in one or two
-sentences. Do not explain your reasoning.
-Question: {question}
-```
+# EXTRA MATERIAL - Sampling
 
 | Parameter | Value |
 |---|---|
@@ -1201,9 +1174,6 @@ Question: {question}
 | Stochastic sample temperature | 0.7 |
 | Stochastic samples per question | 10 |
 | CE equivalence threshold | t = 1.0 |
-| DeBERTa NLI equiv. threshold | ≥ 0.70 both directions |
-| DeBERTa NLI "different" threshold | ≤ 0.30 either direction |
-| Borderline cases escalated to GPT-5.2 | 2–4% of pairs |
 
 ---
 
