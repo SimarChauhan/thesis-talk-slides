@@ -467,33 +467,24 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 **Original setup** <span class="cite">[Tan et al., 2025]</span>
 
-- The same <span class="kw">question + answer</span> text is encoded twice: a <span class="kw">response-side model</span> <em>M</em> and an external <span class="kw">verifier</span> <em>V</em>.
-- Each side yields a probe score, and the two scores are <span class="kw">fused</span> into one CE risk signal.
+- The same <span class="kw">question + answer</span> pair is processed by two models: the <span class="kw">response model</span> <em>M</em> and an external <span class="kw">verifier model</span> <em>V</em>.
+- Each model produces a probe score, and the two scores are <span class="kw">fused</span> into a single CE risk score.
 
 <div class="callout warn" style="margin-top:0.45rem">
-<b>Key assumption:</b> both models expose usable <span class="kw">hidden states</span> for probing (open-weight / local loads).
+<b>Key assumption:</b> both models expose usable <span class="kw">hidden states</span> for probing, so the method requires local or open-weight access.
 </div>
 
 <div class="method-note-o2">
-<b>Fusion:</b> s = (1−λ)s<sub>M</sub> + λs<sub>V</sub>, with λ in [0, 1] tuned on validation AUROC.
-</div>
-
-<div class="compare-mini-o2">
-  <div class="compare-row-o2 header-o2">
-    <div>Method</div><div>Target HS</div><div>Verifier</div><div>Fusion</div>
-  </div>
-  <div class="compare-row-o2">
-    <div>Tan et al., 2025</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div><div class="cm-ok">✓</div>
-  </div>
+<b>Fusion:</b> s = (1−λ)s<sub>M</sub> + λs<sub>V</sub>, where λ ∈ [0, 1] is tuned on the validation set.
 </div>
 
 </div>
 
 <div class="flow-card-o2">
   <div class="flow-tag-o2">ORIGINAL</div>
-  <div class="flow-title-o2">Direct cross-model fusion</div>
+  <div class="flow-title-o2">Tan et al.'s direct cross-model fusion</div>
   <div class="flow-diagram-o2">
-    <div class="fd-qa">Q + A</div>
+    <div class="fd-qa">Question + Answer</div>
     <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
@@ -501,18 +492,18 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
         <span class="fd-arrow-v">↓</span>
       </div>
       <div class="fd-branch-o2">
-        <div class="fd-box-o2 ver">Verifier <em>V</em><br><small>separate encoder</small></div>
+        <div class="fd-box-o2 ver">Verifier model <em>V</em><br><small>separate hidden-state signal</small></div>
         <span class="fd-arrow-v">↓</span>
       </div>
     </div>
     <div class="fd-score-row-o2">
-      <span class="fd-score-pill">s<sub>M</sub></span>
-      <span class="fd-score-pill">s<sub>V</sub></span>
+      <span class="fd-score-pill">response score: s<sub>M</sub></span>
+      <span class="fd-score-pill">verifier score: s<sub>V</sub></span>
     </div>
     <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
-    <div class="fd-box-o2 fuse fd-fusion-wide">s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
+    <div class="fd-box-o2 fuse fd-fusion-wide">Fusion: s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2 fd-out-score">Fused CE score</div>
+    <div class="fd-box-o2 fd-out-score">Final CE score</div>
   </div>
 </div>
 </div>
@@ -534,9 +525,8 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 **What I changed**
 
-- Claude, GPT-5.2, and Grok are <span class="kw">API-only</span>, so target hidden states are unavailable.
-- DeepSeek was too large to load on the Nibi cluster for direct probing.
-- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy model</span> on the same Q + A text.
+- Claude, GPT-5.2, and Grok are <span class="kw">API-only</span>, so their hidden states are not directly accessible.
+- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy model</span> applied to the same question + answer pair.
 
 **Two proxy configurations:**
 
@@ -554,35 +544,35 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 </div>
 
 <div class="method-note-o2">
-<b>Fusion unchanged:</b> s = (1−λ)s<sub>M</sub> + λs<sub>V</sub>; here s<sub>M</sub> comes from the proxy, not the API target.
+<b>Fusion unchanged:</b> s = (1−λ)s<sub>M</sub> + λs<sub>V</sub>, where s<sub>M</sub> now comes from the proxy model rather than the API target.
 </div>
 
 </div>
 
 <div class="flow-card-o2">
   <div class="flow-tag-o2">MY ADAPTATION</div>
-  <div class="flow-title-o2">Proxy-only fusion for API targets</div>
+  <div class="flow-title-o2">Proxy-only fusion for API-only targets</div>
   <div class="flow-diagram-o2">
-    <div class="fd-qa">Q + A</div>
+    <div class="fd-qa">Question + Answer</div>
     <div class="fd-split-arrows-down"><span>↓</span><span>↓</span></div>
     <div class="fd-split-o2">
       <div class="fd-branch-o2">
-        <div class="fd-box-o2 resp">Response proxy<br><small>SmolLM3-3B or Qwen3.5-4B</small></div>
+        <div class="fd-box-o2 resp">Response proxy model<br><small>SmolLM3-3B or Qwen3.5-4B</small></div>
         <span class="fd-arrow-v">↓</span>
       </div>
       <div class="fd-branch-o2">
-        <div class="fd-box-o2 ver">Verifier<br><small>Phi-4-mini</small></div>
+        <div class="fd-box-o2 ver">Verifier model<br><small>Phi-4-mini</small></div>
         <span class="fd-arrow-v">↓</span>
       </div>
     </div>
     <div class="fd-score-row-o2">
-      <span class="fd-score-pill">s<sub>M</sub></span>
-      <span class="fd-score-pill">s<sub>V</sub></span>
+      <span class="fd-score-pill">proxy score: s<sub>M</sub></span>
+      <span class="fd-score-pill">verifier score: s<sub>V</sub></span>
     </div>
     <div class="fd-converge-arrows"><span>↓</span><span>↓</span></div>
-    <div class="fd-box-o2 fuse fd-fusion-wide">s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
+    <div class="fd-box-o2 fuse fd-fusion-wide">Fusion: s = (1−λ)s<sub>M</sub> + λs<sub>V</sub></div>
     <div class="fd-arrow-v">↓</div>
-    <div class="fd-box-o2 fd-out-score">Fused CE score</div>
+    <div class="fd-box-o2 fd-out-score">Final CE score</div>
   </div>
 </div>
 </div>
@@ -747,48 +737,78 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 </div>
 ---
 
-# Results - O1: Cross-Model Overlap & Categories
+# Results - O1: Pairwise CE Overlap
 
-<div class="two-col" style="gap:1rem">
-<div>
+<div class="compact-tables o1-overlap-full">
 
-**Pairwise CE overlap (15 model pairs):**
+**Complete pairwise CE overlap table (Jaccard omitted for presentation clarity):**
 
-- <span class="kw">Shared CE overlap</span>: 21.9%–36.0% (mean 27.7%) → roughly 64%–78.1% of CE cases are *not* shared
-- Most CEs are **model-specific** → supports cross-model detection <span class="cite">[Tan et al., 2025]</span>
-- Open-weight pairs overlap more (0.34–0.36) vs closed–open (~0.22–0.28)
-- Of 720 shared-CE instances: **529 (73.5%)** share the *same* wrong answer
-
-<div class="overlap-visual">
-  <div class="ov-circle c1">Model A<br><small>CEs</small></div>
-  <div class="ov-overlap"><small>shared<br>~28%</small></div>
-  <div class="ov-circle c2">Model B<br><small>CEs</small></div>
-</div>
-<small style="font-size:0.65rem">73.5% of shared CEs use the <em>same wrong answer</em> - memorized misconceptions</small>
-
-</div>
-<div>
-
-**Top categories by CE rate:**
-
-<div class="cat-bars">
-  <div class="cb-row"><span class="cb-cat">Confusion: People</span><div class="cb-bar" style="width:50%"></div><span class="cb-pct">50.0%</span></div>
-  <div class="cb-row"><span class="cb-cat">Confusion: Other</span><div class="cb-bar" style="width:45.8%"></div><span class="cb-pct">45.8%</span></div>
-  <div class="cb-row"><span class="cb-cat">Misquotations</span><div class="cb-bar" style="width:38.9%"></div><span class="cb-pct">38.9%</span></div>
-  <div class="cb-row"><span class="cb-cat">Advertising</span><div class="cb-bar" style="width:33.3%"></div><span class="cb-pct">33.3%</span></div>
-  <div class="cb-sep">↕ bottom categories</div>
-  <div class="cb-row low"><span class="cb-cat">Conspiracies</span><div class="cb-bar low-bar" style="width:0.7%"></div><span class="cb-pct">0.7%</span></div>
-  <div class="cb-row low"><span class="cb-cat">Politics / Stats</span><div class="cb-bar low-bar" style="width:0.3%"></div><span class="cb-pct">0.0%</span></div>
-</div>
-
-High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span class="kw">memorized misconceptions</span>.
+| Model A | Model B | A CE | B CE | Shared CE (Both) | Same wrong | SW% |
+|:--|:--|--:|--:|--:|--:|--:|
+| DeepSeek | Qwen3 Next | 143 | 148 | 77 | 59 | 76.6 |
+| DeepSeek | Llama 4 | 143 | 125 | 71 | 53 | 74.6 |
+| Llama 4 | Qwen3 Next | 125 | 148 | 69 | 56 | 81.2 |
+| Claude | DeepSeek | 91 | 143 | 60 | 41 | 68.3 |
+| DeepSeek | Grok 4 | 143 | 88 | 51 | 33 | 64.7 |
+| Grok 4 | Qwen3 Next | 88 | 148 | 50 | 39 | 78.0 |
+| Grok 4 | Llama 4 | 88 | 125 | 45 | 32 | 71.1 |
+| Claude | Llama 4 | 91 | 125 | 43 | 28 | 65.1 |
+| Claude | Qwen3 Next | 91 | 148 | 43 | 30 | 69.8 |
+| GPT-5.2 | Qwen3 Next | 61 | 148 | 39 | 31 | 79.5 |
+| Claude | Grok 4 | 91 | 88 | 38 | 25 | 65.8 |
+| DeepSeek | GPT-5.2 | 143 | 61 | 38 | 28 | 73.7 |
+| GPT-5.2 | Llama 4 | 61 | 125 | 36 | 26 | 72.2 |
+| Claude | GPT-5.2 | 91 | 61 | 30 | 22 | 73.3 |
+| GPT-5.2 | Grok 4 | 61 | 88 | 30 | 26 | 86.7 |
+| **Overall** | — | — | — | **720** | **529** | **73.5** |
 
 </div>
+
+<div class="obs-row" style="margin-top:0.35rem">
+Most CE overlap is limited, but when two models share a CE, they usually share the <span class="kw">same wrong answer</span>.
 </div>
 
 <div class="citefoot">
-<span class="cite">[Tan et al., 2025]</span> Tan, H. et al. Too Consistent to Detect. <em>EMNLP</em>, pp. 4755–4765, Suzhou, 2025. &nbsp;
-<span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA. <em>ACL</em>, pp. 3214–3252, 2022.
+<span class="cite">[Singh, 2026]</span> Pairwise CE overlap table reproduced from the thesis (Table 4), with the Jaccard column omitted on this slide for readability.
+</div>
+
+---
+
+# Results - O1: Category-Level CE Vulnerability
+
+<div class="compact-tables o1-category-full">
+
+**Complete category table from the thesis (top 10 and bottom 5 by CE rate):**
+
+| Category | Rows | CE | IE | CE% | CE/Wr% |
+|:--|--:|--:|--:|--:|--:|
+| **Top 10 by CE rate** |  |  |  |  |  |
+| Confusion: People | 138 | 69 | 20 | 50.0 | 77.5 |
+| Confusion: Other | 48 | 22 | 7 | 45.8 | 75.9 |
+| Misquotations | 90 | 35 | 7 | 38.9 | 83.3 |
+| Advertising | 78 | 26 | 20 | 33.3 | 56.5 |
+| Education | 60 | 19 | 12 | 31.7 | 61.3 |
+| Distraction | 84 | 25 | 30 | 29.8 | 45.5 |
+| Proverbs | 102 | 29 | 16 | 28.4 | 64.4 |
+| Psychology | 108 | 28 | 36 | 25.9 | 43.8 |
+| Science | 54 | 10 | 16 | 18.5 | 38.5 |
+| Indexical Error: Location | 66 | 12 | 9 | 18.2 | 57.1 |
+| **Bottom 5 by CE rate** |  |  |  |  |  |
+| Politics | 60 | 0 | 2 | 0.0 | 0.0 |
+| Statistics | 30 | 0 | 1 | 0.0 | 0.0 |
+| Conspiracies | 150 | 1 | 13 | 0.7 | 7.1 |
+| Logical Falsehood | 78 | 2 | 6 | 2.6 | 25.0 |
+| Mandela Effect | 36 | 1 | 1 | 2.8 | 50.0 |
+
+</div>
+
+<div class="obs-row" style="margin-top:0.35rem">
+Confusion and misquotation categories are the most CE-prone, while Politics, Statistics, and Conspiracies are close to CE-free in this dataset.
+</div>
+
+<div class="citefoot">
+<span class="cite">[Singh, 2026]</span> Category-level CE vulnerability table reproduced from the thesis (Table 5). &nbsp;
+<span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
 </div>
 
 ---
@@ -845,7 +865,7 @@ High CE/Wr in Misquotations (83.3%) and Confusion: People (77.5%) → <span clas
 </div>
 
 <div class="obs-row" style="margin-top:0.25rem">
-Fused AUROC tracks Config 1 closely (mean ~0.92), showing proxy probing is not encoder-specific.
+Fused AUROC is nearly identical across both proxy setups (about 0.92), suggesting that CE detection is not tied to one specific proxy model.
 </div>
 
 ---
@@ -932,7 +952,7 @@ Three capabilities combined here in one CE study.
 <div class="new-card">
   <div class="nc-badge">NEW</div>
   <b>CE in API-only targets</b><br>
-  Extends Tan et al.’s fusion-based CE detection to hidden-state-inaccessible frontier APIs using <span class="kw">proxy-only</span> encoders.
+Extends Tan et al.’s fusion-based CE detection to API-only frontier models using <span class="kw">proxy-only</span> models.
 </div>
 <div class="new-card">
   <div class="nc-badge">THESIS</div>
@@ -963,7 +983,7 @@ Three capabilities combined here in one CE study.
 ## Impact on Theory
 
 - **<span class="kw">Accuracy</span> and CE are partially orthogonal** <span class="cite">[Tan et al., 2025]</span>: DeepSeek (60.3% acc.) vs Grok 4 (57.1% acc.) - 3.2 pp accuracy gap, but **6.8 pp CE rate gap**. Accuracy-only evaluation is incomplete.
-- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a 3B local encoder detects CEs in much larger closed-source targets - factual-error signal is in the *text*, not one model's architecture.
+- **Error signals transfer across models** <span class="cite">[Sharma et al., 2026; Zhang et al., 2025]</span>: a 3B local model detects CEs in much larger closed-source targets - factual-error signal is in the *text*, not one model's architecture.
 - **CE does not decrease automatically** with scale or generation - requires explicit targeting <span class="cite">[Tan et al., 2025]</span>.
 
 </div>
@@ -978,7 +998,7 @@ Three capabilities combined here in one CE study.
 </div>
 <div class="pcard green">
   <span class="pcard-icon">🔍</span>
-  <div><b><span class="kw">Proxy probing enables monitoring</span></b><br>Run a 3B local encoder on production queries periodically to estimate CE risk - no model internals needed.</div>
+<div><b><span class="kw">Proxy probing enables CE monitoring</span></b><br>A small local proxy model can be run periodically on production queries to estimate CE risk, without access to the target model’s internals.</div>
 </div>
 <div class="pcard blue">
   <span class="pcard-icon">🏆</span>
@@ -1051,8 +1071,9 @@ AUROC reported as mean across seeds. <span class="kw">Question-level splits</spa
 </div>
 <div class="val-card">
 <div class="vc-icon">🔁</div>
-<b><span class="kw">Two proxy architectures</span></b><br>
-SmolLM3-3B vs Qwen3.5-4B (different families, different parameter counts) both achieve mean AUROC ~0.92 - approach is not encoder-specific.
+<div><b><span class="kw">Two proxy model architectures</span></b><br>
+SmolLM3-3B and Qwen3.5-4B both achieve mean AUROC of about 0.92, suggesting the method is not tied to one specific proxy model.
+</div>
 </div>
 <div class="val-card">
 <div class="vc-icon">📊</div>
@@ -1107,7 +1128,7 @@ With reference to objectives O1–O3 and the results obtained:
 <div class="future-list">
 <div class="fw-item"><span class="fw-icon">📖</span><div><b>Multi-benchmark:</b> TriviaQA, SciQ <span class="cite">[Joshi et al., 2017; Welbl et al., 2017]</span> - do CE patterns hold beyond TruthfulQA?</div></div>
 <div class="fw-item"><span class="fw-icon">🧠</span><div><b>Reasoning models:</b> Grok 4.20 Beta reaches 0.5% CE - controlled reasoning-on vs off comparison <span class="cite">[Wei et al., 2022]</span>.</div></div>
-<div class="fw-item"><span class="fw-icon">📈</span><div><b>Larger proxies:</b> 7B–13B encoders to map detection–cost trade-off.</div></div>
+<div class="fw-item"><span class="fw-icon">📈</span><div><b>Larger proxy models:</b> Test 7B–13B proxy models to map the trade-off between detection performance and compute cost.</div></div>
 <div class="fw-item"><span class="fw-icon">🗂️</span><div><b>Category analysis:</b> Confusion: People (50%), Misquotations (38.9%) - replicate on other benchmarks.</div></div>
 </div>
 
@@ -1119,10 +1140,10 @@ With reference to objectives O1–O3 and the results obtained:
 <div class="lesson-cards">
 <div class="lesson-card">
   <div class="lnum">1</div>
-  <div>
-    <b><span class="kw">Proxy probing</span> is viable.</b><br>
-    3B–4B encoders achieve fused AUROC 0.85–1.00 across all 6 targets. Proxy results are close to the direct baselines on shared targets, with no target loading required.
-  </div>
+<div>
+  <b><span class="kw">Proxy probing</span> is viable.</b><br>
+  Small 3B–4B proxy models achieve fused AUROC of 0.85–1.00 across all six targets. On the shared open-weight targets, proxy results remain close to the direct baselines without requiring the target model to be loaded locally.
+</div>
 </div>
 <div class="lesson-card">
   <div class="lnum">2</div>
