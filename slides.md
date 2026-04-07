@@ -458,6 +458,8 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 ---
 
+<div class="proxy-adapt-slide">
+
 # Research Methodology
 
 ## Original setup <span class="cite">[Tan et al., 2025]</span>
@@ -508,6 +510,8 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
     <div class="fd-box-o2 fd-out-score">Final fused error score</div>
   </div>
 </div>
+</div>
+
 </div>
 
 <div class="citefoot">
@@ -738,12 +742,11 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 <span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
 </div>
 ---
+---
 
 # Results - O1: Pairwise CE Overlap
 
-<div class="compact-tables o1-overlap-full">
-
-**Pairwise CE overlap table:**
+<div style="font-size:0.84em; line-height:1.1;">
 
 | Model A | Model B | A CE | B CE | Shared CE (Both) | Same wrong | SW% |
 |:--|:--|--:|--:|--:|--:|--:|
@@ -755,6 +758,29 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 | Grok 4 | Qwen3 Next | 88 | 148 | 50 | 39 | 78.0 |
 | Grok 4 | Llama 4 | 88 | 125 | 45 | 32 | 71.1 |
 | Claude | Llama 4 | 91 | 125 | 43 | 28 | 65.1 |
+
+</div>
+
+<div class="obs-row" style="margin-top:0.3rem; font-size:0.8em; line-height:1.12;">
+CE overlap is <span class="kw">limited</span>. Across model pairs, only about <span class="kw">21.9% to 36.0%</span> of the CE union is shared, so roughly <span class="kw">64% to 78%</span> is not shared.
+</div>
+
+<div class="obs-row" style="margin-top:0.12rem; font-size:0.8em; line-height:1.12;">
+The <span class="kw">open-weight pairs</span> show the highest overlap overall. Their Jaccard scores are about <span class="kw">0.34 to 0.36</span>.
+</div>
+
+<div class="citefoot" style="font-size:0.72em; margin-top:0.18rem;">
+<span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
+</div>
+
+---
+
+# Results - O1: Pairwise CE Overlap
+
+<div style="font-size:0.84em; line-height:1.1;">
+
+| Model A | Model B | A CE | B CE | Shared CE (Both) | Same wrong | SW% |
+|:--|:--|--:|--:|--:|--:|--:|
 | Claude | Qwen3 Next | 91 | 148 | 43 | 30 | 69.8 |
 | GPT-5.2 | Qwen3 Next | 61 | 148 | 39 | 31 | 79.5 |
 | Claude | Grok 4 | 91 | 88 | 38 | 25 | 65.8 |
@@ -766,15 +792,17 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 
 </div>
 
-<div class="obs-row" style="margin-top:0.35rem">
-Most CE overlap is limited, but when two models share a CE, they usually share the <span class="kw">same wrong answer</span>.
+<div class="obs-row" style="margin-top:0.3rem; font-size:0.8em; line-height:1.12;">
+When two models share a CE, they often produce the <span class="kw">same wrong answer</span>. Overall, the same-wrong rate is <span class="kw">73.5%</span>.
 </div>
 
-<div class="citefoot">
+<div class="obs-row" style="margin-top:0.12rem; font-size:0.8em; line-height:1.12;">
+This suggests that many CEs are model-specific, but shared CEs often reflect the <span class="kw">same misconception</span>.
+</div>
+
+<div class="citefoot" style="font-size:0.72em; margin-top:0.18rem;">
 <span class="cite">[Lin et al., 2022]</span> Lin, S. et al. TruthfulQA: Measuring How Models Mimic Human Falsehoods. <em>ACL</em>, pp. 3214–3252, 2022.
 </div>
-
-
 
 ---
 
