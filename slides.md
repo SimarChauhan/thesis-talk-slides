@@ -594,7 +594,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 # Research Methodology
 
-## Version-evolution study (O3) & Threats to Validity
+## Version-evolution study (O3)
 
 <div class="two-col" style="gap:1rem">
 <div>
