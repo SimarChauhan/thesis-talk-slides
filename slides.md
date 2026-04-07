@@ -716,7 +716,7 @@ Higher accuracy does <b>not</b> guarantee lower CE - Claude (74.7% acc.) has a <
 | IE | 904 | 18.7% | 57.9% |
 
 <small style="font-size:0.62rem;color:#64748b">
-Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42.1%</b> of wrong answers are CEs. Blank cells in the <i>% Wrong</i> column are left blank to match the thesis table.
+Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42.1%</b> of wrong answers are CEs.
 </small>
 
 </div>
@@ -734,7 +734,7 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 | Llama 4 Maverick | 52.4 | 331 | 125 | 206 | 15.5 | 37.8 |
 
 <small style="font-size:0.62rem;color:#64748b">
-<span class="kw">CE%</span> = CE ÷ 807 questions · <span class="kw">CE/Wr</span> = CE as a percentage of wrong answers · models ordered by descending accuracy.
+<span class="kw">CE%</span> = CE ÷ 807 questions · <span class="kw">CE/Wr</span> = CE as a percentage of wrong answers
 </small>
 
 </div>
