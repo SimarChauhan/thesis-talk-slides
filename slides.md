@@ -741,7 +741,7 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 
 <div class="compact-tables o1-overlap-full">
 
-**Complete pairwise CE overlap table (Jaccard omitted for presentation clarity):**
+**Complete pairwise CE overlap table:**
 
 | Model A | Model B | A CE | B CE | Shared CE (Both) | Same wrong | SW% |
 |:--|:--|--:|--:|--:|--:|--:|
@@ -768,9 +768,6 @@ Among the 1,560 incorrect answers, 656 are self-consistent errors, meaning <b>42
 Most CE overlap is limited, but when two models share a CE, they usually share the <span class="kw">same wrong answer</span>.
 </div>
 
-<div class="citefoot">
-<span class="cite">[Singh, 2026]</span> Pairwise CE overlap table reproduced from the thesis (Table 4), with the Jaccard column omitted on this slide for readability.
-</div>
 
 ---
 
