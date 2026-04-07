@@ -12,7 +12,7 @@ The specific failure mode here is *self-consistent error*, where a model gives t
 ## Slide 3 - Introduction (Research Questions)
 "This thesis addresses three research questions.  
 RQ1: How prevalent are self-consistent errors across frontier models?  
-RQ2: Can small proxy encoders detect these errors without hidden-state access to target models?  
+RQ2: Can small proxy models detect these errors without hidden-state access to target models?  
 RQ3: Do self-consistent errors naturally decrease as model families evolve?  
 I now move to background and what prior work did not yet cover."
 
@@ -54,7 +54,7 @@ Their setup assumes you can access hidden states from both models."
 ## Slide 10 - Methodology (Proxy adaptation)
 "My contribution is not replacing the fusion idea.  
 Several of my frontier targets are API-only, so I cannot use their hidden states. DeepSeek was also too large to load locally.  
-I therefore use small local proxy encoders on the same text for the response-side signal, keep the same verifier and fusion rule, and still get a fused CE score.  
+I therefore use small local proxy models on the same text for the response-side signal, keep the same verifier and fusion rule, and still get a fused CE score.  
 The comparison strip shows target hidden states are no longer required for that branch."
 
 ## Slide 11 - Methodology (Evolution and Validity)
@@ -86,7 +86,7 @@ The key outcome is strong fused performance, with mean around 0.918."
 ## Slide 16 - O2 White-Box Probe Performance (Config 2)
 "Config 2 replaces the response proxy with Qwen3.5-4B while keeping the same verifier.  
 Performance remains very similar, with mean fused AUROC around 0.919.  
-This suggests the approach is not tied to one specific small encoder family."
+This suggests the approach is not tied to one specific small proxy-model family."
 
 ## Slide 17 - O2 Baseline Comparison
 "Here I compare proxy results against original direct hidden-state extraction where feasible.  

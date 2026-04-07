@@ -238,7 +238,7 @@ April 2026
 
 <div class="rq-grid">
 <div class="rq-card"><div class="rq-num">RQ1</div> How prevalent are CEs across closed-source and open-weight frontier LLMs?</div>
-<div class="rq-card"><div class="rq-num">RQ2</div> Can small <span class="kw">proxy encoders</span> detect CEs for API-only targets without hidden-state access?</div>
+<div class="rq-card"><div class="rq-num">RQ2</div> Can small <span class="kw">proxy models</span> detect CEs for API-only targets without hidden-state access?</div>
 <div class="rq-card"><div class="rq-num">RQ3</div> Do CEs decrease as model families evolve over successive generations?</div>
 </div>
 
@@ -536,7 +536,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 - Claude, GPT-5.2, and Grok are <span class="kw">API-only</span>, so target hidden states are unavailable.
 - DeepSeek was too large to load on the Nibi cluster for direct probing.
-- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy encoder</span> on the same Q + A text.
+- I keep the same <span class="kw">fusion framework</span> <span class="cite">[Tan et al., 2025]</span>, but the response-side signal now comes from a small local <span class="kw">proxy model</span> on the same Q + A text.
 
 **Two proxy configurations:**
 
@@ -681,7 +681,7 @@ Threshold t = 1.0 → <b>all 10</b> samples must match greedy to count as CE.
 
 <div class="result-pills">
   <div class="r-pill o1"><b>O1</b> CEs common across all 6 models · CE% 7.6–18.3% · no model CE-free</div>
-  <div class="r-pill o2"><b>O2</b> Strong fused CE detection · proxy encoders for API-only targets</div>
+  <div class="r-pill o2"><b>O2</b> Strong fused CE detection · proxy models for API-only targets</div>
   <div class="r-pill o3"><b>O3</b> Accuracy ↑ in all families · CE did not follow - partially orthogonal</div>
 </div>
 
