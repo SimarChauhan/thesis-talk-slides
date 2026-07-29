@@ -1,4 +1,4 @@
-# Thesis Talk Slides (Slidev)
+# Thesis Talk Slides
 
 This folder contains the thesis presentation deck built with Slidev.
 
